@@ -1,0 +1,37 @@
+---
+description: Keep .claude commands in sync with .cursor skills
+alwaysApply: true
+---
+
+# Skills must sync to `.claude/commands`
+
+Whenever you **create or edit** a skill in `.cursor/skills/**/SKILL.md`, you must also **create or update** the corresponding command file in `.claude/commands/` so `.claude` is portable and complete.
+
+## Required behavior
+
+- For every skill at:
+  - `.cursor/skills/<skill-slug>/SKILL.md`
+  - `.cursor/skills/data-skills/<skill-slug>/SKILL.md`
+- Ensure there is a command file:
+  - `.claude/commands/<skill-command>.md`
+
+## Mapping rules
+
+- **Default command name**: use the skill folder name (without `/SKILL.md`) as the command filename.
+  - Example: `.cursor/skills/02-pm-planner/SKILL.md` → `.claude/commands/02-pm-planner.md`
+- **Data skills**: command filename is the `name:` in the skill frontmatter (or the folder name if `name:` is missing).
+  - Example: `.cursor/skills/data-skills/metric-evaluator/SKILL.md` → `.claude/commands/metric-evaluator.md`
+
+## Command content requirements (portability)
+
+- `.claude/commands/*.md` must be **self-contained**:
+  - Do **not** reference `.cursor/skills/...` (no “Canonical spec” links).
+  - Inline the full workflow copy needed to run the command.
+- Keep the command’s content aligned with the skill:
+  - If the skill changes inputs/workflow/output, update the command accordingly.
+
+## Completion checklist (must satisfy before finishing)
+
+- [ ] Skill file updated/created
+- [ ] Matching `.claude/commands/*.md` created/updated
+- [ ] No `.cursor/skills/...` references remain in the command file
