@@ -1,6 +1,6 @@
 ---
-name: 08-ui-ux-review
-description: Reviews a UI/UX design or implementation (screens, flows, copy) and returns prioritized feedback + fixes. Use when the user asks for a UI/UX review, microcopy review, or runs /08-ui-ux-review.
+name: 06-ui-ux-review
+description: Reviews a UI/UX design or implementation (screens, flows, copy) and returns prioritized feedback + fixes. Use when the user asks for a UI/UX review, microcopy review, or runs /06-ui-ux-review.
 ---
 
 # UI/UX Review

@@ -1,6 +1,6 @@
 ---
-name: 09-rnd-reviewer
-description: Reviews a PRD/plan/idea from an engineering R&D perspective (feasibility, risks, architecture options, test/rollout). Use when the user asks for an R&D review or runs /09-rnd-reviewer.
+name: 07-rnd-reviewer
+description: Reviews a PRD/plan/idea from an engineering R&D perspective (feasibility, risks, architecture options, test/rollout). Use when the user asks for an R&D review or runs /07-rnd-reviewer.
 ---
 
 # R&D Reviewer

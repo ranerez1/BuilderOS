@@ -1,5 +1,5 @@
 ---
-name: 01-Customer-Discovery
+name: 01-customer-discovery
 description: Synthesizes customer feedback from transcripts, notes, CSVs, and other configured sources into key trends and high-signal backlog candidates. Read-only: does not mark items as analyzed or write back to source systems. Use when the user asks to analyze customer calls, meeting transcripts, call notes, voice-of-customer insights, or runs /01-customer-discovery.
 ---
 

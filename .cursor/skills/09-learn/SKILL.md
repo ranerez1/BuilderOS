@@ -1,6 +1,6 @@
 ---
-name: 11-learn
-description: Captures learnings from a shipped feature/bugfix by updating the relevant PRD + TDD and writing a durable learning note under Memory/Learnings. Use when the user says "retro", "retrospective", "postmortem", "lessons learned", or runs /11-learn after shipping.
+name: 09-learn
+description: Captures learnings from a shipped feature/bugfix by updating the relevant PRD + TDD and writing a durable learning note under Memory/Learnings. Use when the user says "retro", "retrospective", "postmortem", "lessons learned", or runs /09-learn after shipping.
 ---
 
 # Learn (retro for feature / bugfix)

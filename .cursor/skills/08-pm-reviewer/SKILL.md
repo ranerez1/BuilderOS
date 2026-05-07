@@ -1,6 +1,6 @@
 ---
-name: 10-pm-reviewer
-description: Reviews a PRD/plan/ticket as a PM: problem clarity, scope, trade-offs, success metrics, and rollout. Use when the user asks for a PM review or runs /10-pm-reviewer.
+name: 08-pm-reviewer
+description: Reviews a PRD/plan/ticket as a PM: problem clarity, scope, trade-offs, success metrics, and rollout. Use when the user asks for a PM review or runs /08-pm-reviewer.
 ---
 
 # PM Reviewer
