@@ -23,6 +23,9 @@ Skills read this file to resolve tool URLs/IDs and MCP server names.
 - **Workspace/Project URL**: `<paste link>`
 - **Board/Project ID (optional)**: `<id-or-empty>`
 - **MCP Server**: `<mcp-server-name>`
+- **Local CSV export paths (optional)**: `<one or more absolute/relative paths to .csv files>`
+- **Local docs/folder paths (optional)**: `<one or more paths to folders/files with transcripts/notes>`
+- **Other customer-feedback sources (optional)**: `<describe extra sources + where/how to access them>`
 
 ## Support Tickets
 - **Tool**: _e.g. Intercom / Zendesk / Linear / Jira_

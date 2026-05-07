@@ -1,6 +1,6 @@
 ---
-name: create-prd
-description: Writes a PRD (product requirements document) for a specific feature from the Product Backlog board, saves it as a markdown file under Outputs/Product PRDs, and posts it to the backlog item as an update (and uploads the file when possible). Use when the user runs /create-prd or asks to write a PRD for a backlog feature.
+name: 05-create-prd
+description: Writes a PRD (product requirements document) for a specific feature from the Product Backlog board, saves it as a markdown file under Outputs/Product PRDs, and posts it to the backlog item as an update (and uploads the file when possible). Use when the user runs /05-create-prd or asks to write a PRD for a backlog feature.
 ---
 
 # Create PRD

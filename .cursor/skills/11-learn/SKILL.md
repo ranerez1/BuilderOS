@@ -1,9 +1,9 @@
 ---
-name: retro
-description: Documents a completed feature or bugfix retro by updating the relevant PRD and Technical Design Doc, and writing a durable learning note under Memory/Learnings. Use when the user says "retro", "retrospective", "postmortem", "lessons learned", "what went well/poorly", or runs /retro after shipping a feature or fixing a bug.
+name: 11-learn
+description: Captures learnings from a shipped feature/bugfix by updating the relevant PRD + TDD and writing a durable learning note under Memory/Learnings. Use when the user says "retro", "retrospective", "postmortem", "lessons learned", or runs /11-learn after shipping.
 ---
 
-# Retro (feature / bugfix)
+# Learn (retro for feature / bugfix)
 
 Capture **what we learned** from a shipped feature or bugfix and make it reusable:
 

@@ -1,9 +1,9 @@
 ---
-name: technical-plan
-description: Writes a feature Technical Design Doc (technical plan) as a markdown file under Outputs/Technical Docs. Use when the user says "technical plan", "technical design", "TDD", "implementation plan", "design doc", or runs /technical-plan or /technical-design, either before building a feature (planning) or after shipping (documentation).
+name: 06-prd-to-tech-plan
+description: Converts a PRD into a build-ready Technical Design Doc (TDD) and saves it under Outputs/Technical Docs. Use when the user wants to turn a PRD into an implementation plan, or runs /06-prd-to-tech-plan.
 ---
 
-# Technical Plan (Technical Design Doc)
+# PRD → Technical Plan (Technical Design Doc)
 
 Create a **feature Technical Design Doc** (TDD) that is concise, implementation-ready, and easy to maintain.
 
