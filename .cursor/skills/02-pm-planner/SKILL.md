@@ -1,33 +1,45 @@
 ---
 name: 02-pm-planner
-description: Turns a raw idea/backlog item into a crisp PM plan (problem, outcomes, scope, risks, milestones, and metrics). Use when the user asks for a PM plan or runs /02-pm-planner.
+description: Translates discovery outputs (problems, trends, evidence) into actionable product initiatives with clear outcomes, scope, milestones, and metrics. Use when the user wants to turn discovery into an initiative plan or runs /02-pm-planner.
 ---
 
 # PM Planner
 
-Create a **practical plan** a PM can share with design/engineering to align on direction before writing a full PRD.
+Turn discovery findings into a **practical, decision-ready initiative plan** a PM can share with design/engineering before writing a full PRD.
 
 ## Inputs (ask only if missing)
 
-- **What are we planning?** (feature/initiative name + 1–2 lines)
-- **Target user + scenario** (who, when, why)
-- **People problem + evidence** (required; 2–5 bullets, use `[NEED: ...]` for gaps)
+- **Discovery inputs** (preferred):
+  - Key trend(s) / problem statement(s)
+  - Evidence snippets (quotes, record refs, counts)
+  - Who/where it shows up (persona/segment/product area)
+- **Initiative framing** (if already decided):
+  - Initiative name + 1–2 lines
+- **Constraints**: timing, platform, dependencies, compliance, stakeholders
+- **Baseline + success**: current state + 1–3 measurable success signals
+
+If the user only provides a raw idea, first restate it as a discovery-backed problem:
+
+- People problem + evidence (required; 2–5 bullets, use `[NEED: ...]` for gaps)
 - **Constraints**: timing, platform, dependencies, compliance, stakeholders
 - **Baseline + success**: current state + 1–3 measurable success signals
 
 ## Workflow
 
-### 1) Clarify the problem (no solution yet)
+### 1) Convert discovery into initiative candidates (no solution yet)
 
+- Start from trends/problems and generate **1–3 initiative candidates** (not feature tasks).
 - Translate any solution-y wording into:
   - **People Problem** (1–2 sentences)
   - **Desired outcome** (1 sentence)
+- Attach **evidence** to each candidate (quotes/refs + frequency when available).
 - List **assumptions** explicitly and mark unknowns with `[NEED: ...]`.
 
-### 2) Define the decision you need
+### 2) Pick the initiative shape (options + recommendation)
 
-- What decision do we need from the team? (ship vs not, MVP shape, sequencing, trade-offs)
-- What “must be true” for this to succeed?
+- Propose **2 options** for how to address the problem (MVP shapes or sequencing variants).
+- Make the trade-off explicit (speed, risk, scope, UX quality, tech constraints).
+- State what “must be true” for the initiative to be worth doing now.
 
 ### 3) Plan the work at “pre-PRD” fidelity
 
@@ -47,7 +59,7 @@ Create a **practical plan** a PM can share with design/engineering to align on d
 
 ## Output (chat)
 
-Return a single markdown plan using this template:
+Return a single markdown plan. If multiple discovery trends exist, output **up to 3** initiative candidates, then recommend one.
 
 ```markdown
 ## PM Plan: [initiative]
@@ -56,6 +68,8 @@ Return a single markdown plan using this template:
 - **People problem**:
 - **Desired outcome**:
 - **Evidence**:
+  - [record ref] — “[…]”
+  - [record ref] — “[…]”
 
 ### Users & scenarios
 - **Primary user**:
