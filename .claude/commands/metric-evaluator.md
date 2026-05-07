@@ -1,6 +1,6 @@
 Evaluate a proposed product metric using the **3-ingredient framework**.
 
-**Canonical spec:** [.cursor/skills/metric-evaluator/SKILL.md](.cursor/skills/metric-evaluator/SKILL.md) — follow that file for steps, definitions, verdict rules, and the output template.
+**Canonical spec:** [.cursor/skills/data-skills/metric-evaluator/SKILL.md](.cursor/skills/data-skills/metric-evaluator/SKILL.md) — follow that file for steps, definitions, verdict rules, and the output template.
 
 **Summary:** Gather metric + product context + team goal; rate **Unit of value**, **Truth detector**, and **Actionable** each PASS / WEAK / FAIL; emit **STRONG / NEEDS WORK / REPLACE IT** with concrete **WHAT'S BROKEN** and **SUGGESTED FIX** (including formula when helpful).
 
