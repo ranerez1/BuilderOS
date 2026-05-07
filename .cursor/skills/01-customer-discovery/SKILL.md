@@ -10,7 +10,7 @@ Turn customer feedback (meetings, calls, notes, CSV exports, etc.) into:
 - Key **trends/themes** (what repeats, who it affects, and why it matters now)
 - A short list of **high-signal backlog candidates** with evidence
 
-This skill is **read-only**: do not update any “AI analyzed”/status fields, do not write back to the source tool, and do not create backlog items.
+This skill is **read-only**: It does not write back to the source tool, and do not create backlog items.
 
 ## Configuration
 
