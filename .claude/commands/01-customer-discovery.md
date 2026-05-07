@@ -1,8 +1,178 @@
 Analyze customer feedback (meetings/calls/notes/CSV exports) and synthesize key trends + backlog candidates.
 
-**Canonical spec:** [.cursor/skills/01-Customer-Discovery/SKILL.md](.cursor/skills/01-Customer-Discovery/SKILL.md)
+# 01 Customer Discovery → trends + backlog candidates (read-only)
 
-**Config:** Source locations (tool URLs/IDs/MCP server names + optional CSV paths) are in `Knowledge/workspace-tools.md` under **Customer Meeting Transcripts**.
+Turn customer feedback (meetings, calls, notes, CSV exports, etc.) into:
 
-**Summary:** Read-only synthesis of customer feedback into (1) quantified themes/trends with evidence and (2) high-signal backlog candidates derived from those trends. Does not write back or mark items as analyzed.
+- Key **trends/themes** (what repeats, who it affects, and why it matters now)
+- A short list of **high-signal backlog candidates** with evidence
+
+This command is **read-only**: do not update any “AI analyzed”/status fields, do not write back to the source tool, and do not create backlog items.
+
+## Configuration
+
+Before running, read **`Knowledge/workspace-tools.md`** and use the values under:
+
+- **Customer Discovery / Customer Meeting Transcripts** (primary)
+- **Attachments (optional)** (if you need to fetch/read attached files)
+
+All tool URLs/IDs and MCP server names must come from that file.
+
+## Supported sources (choose what’s configured)
+
+Use **one or more** of the following, based on what’s present in `Knowledge/workspace-tools.md`:
+
+1) **Tool/MCP source** (recommended)
+   - A “Customer Meeting Transcripts” board/database/folder exposed via its MCP server
+   - Pull meeting content from long-text fields, item updates/comments, and attached files when available
+
+2) **Local CSV export** (recommended when you already have an export)
+   - Read one or more CSVs from local paths listed in `Knowledge/workspace-tools.md`
+   - Parse the CSV and treat each row as one feedback record (meeting, call, ticket-like note, etc.)
+
+3) **Other sources listed in workspace tools**
+   - If `Knowledge/workspace-tools.md` lists additional customer-feedback sources (e.g. a Drive folder, Notion DB, docs folder, etc.), ingest them using the referenced tool/MCP server and document any limitations.
+
+## Default scope
+
+- Prefer the **most recent 30–90 days** of feedback if dates exist.
+- If the source is large and filtering isn’t available, cap intake to a **sane batch (e.g. 30–50 records)** and clearly state the cap.
+
+## Workflow
+
+### 0) Decide intake plan (no guessing)
+
+1. Read `Knowledge/workspace-tools.md`.
+2. List which sources are actually configured (CSV paths, tool URLs/IDs, MCP server names).
+3. If multiple sources are configured, combine them; otherwise use what exists.
+4. If nothing is configured, stop and state exactly what’s missing in `Knowledge/workspace-tools.md`.
+
+### 1) Ingest records + normalize fields
+
+For each record (meeting/call/note), capture best-effort:
+
+- **Record reference**: title/name + link (preferred) or an ID; for CSV use a stable row identifier (row number + filename)
+- **Date** (if present)
+- **Customer context**: company/account, persona/role, plan/segment (if present)
+- **Product area** (if tagged/inferrable)
+- **Raw text**: transcript/notes/summary (keep a pointer to where it came from)
+
+CSV expectations (best-effort; do not require all columns):
+
+- **Text fields**: Prefer concatenating `title` + `body` + any long-text columns (in that order) and treat the result as the record’s “raw text”.
+  - Treat any of these as “text”: `body`, `text`, `message`, `description`, `details`, `notes`, `summary`, `feedback`, `highlights`, `transcript`, `content`
+  - If both `title` and `body` exist, keep them separate too (they’re often higher-signal for summarization and quoting).
+- **Customer/person context**: Treat any of these as “customer/person”: `account`, `company`, `customer`, `persona`, `role`, `user`, `user_id`, `email`
+- **Date**: Treat any of these as “date”: `date`, `meeting_date`, `created_at`, `updated_at`, `timestamp`
+- **Channel/source**: If present (e.g. `source`, `channel`, `type`), store it; it’s useful for “review vs ticket” split.
+- **State/severity** (if present): capture fields like `status`, `ticket_status`, `severity`, `priority`, `ticket_severity` and keep raw values.
+- **Rating/sentiment** (if present): capture fields like `rating`, `stars`, `score`, `nps`, `csat`.
+- **Platform/build context** (if present): capture `platform`, `device`, `os`, `app_version`, `build`, `browser`.
+- If column names don’t match, infer conservatively and state your mapping. Never guess missing values.
+
+CSV record reference rules:
+- If an explicit ID column exists (e.g. `id`, `feedback_id`, `ticket_id`), use it as the primary record reference.
+- Otherwise use `[filename]#row-[row_number]` as the stable reference.
+
+When the CSV is “structured feedback” (like app reviews + support tickets):
+- Treat **each row as one feedback atom**, even if multiple rows come from the same `user_id` (don’t merge them).
+- Do a best-effort **dedupe check** (don’t delete data): if multiple records appear to be duplicates (same user + near-identical title/body), flag them in coverage notes and count them once for frequency estimates when appropriate.
+
+### 2) Extract signals per record (with evidence)
+
+From each record, extract only what’s supported by the text:
+
+- **Jobs-to-be-done / desired outcomes**
+- **Pain points** (friction, confusion, time waste, manual work, reliability)
+- **Requests** (features, integrations, missing capabilities)
+- **Bugs** (clear malfunction statements)
+- **Workarounds** (what they do instead)
+- **Importance signals** (urgency, frequency, “deal breaker”, “must-have”)
+
+If structured fields exist, use them as signals (without overfitting):
+- **Severity/status fields** (e.g. `ticket_severity`, `ticket_status`): treat as *triage metadata*, not proof of impact. Use to prioritize investigation but still require text evidence for trends.
+- **Ratings**: use as a weak sentiment proxy (e.g. 1–2 = negative, 4–5 = positive) but do not treat ratings as “importance” unless the text supports it.
+- **Platform/version**: use to identify scoped clusters (e.g. “mobile edit UX” or “sync across devices”), but don’t infer root cause beyond what the text says.
+
+Evidence rules:
+
+- Every extracted point must include **1 short quote/snippet** (or a clearly marked paraphrase if the source is summarized).
+- Never invent customer names, dates, or quotes.
+
+### 3) Synthesize trends (the main deliverable)
+
+Cluster across all records into trends. For each trend, compute/estimate:
+
+- **Theme**: what repeats (one sentence)
+- **Frequency**: count of distinct records mentioning it (and % of total records ingested)
+- **Who/where**: segment/persona/product area if evidence exists
+- **Severity**: what breaks (time, money, trust, adoption), and whether it blocks adoption vs. “nice-to-have”
+- **Representative evidence**: 2–4 record citations with short snippets
+- **Opportunity framing**: the underlying outcome/job (not a solution)
+
+If available, add 1–2 “structured slices” per trend (only when evidence exists):
+- **By source/channel** (e.g. review vs support ticket)
+- **By platform** (desktop vs mobile) and/or **app_version**
+- **By status/severity** for ticket-like sources
+
+De-duplicate aggressively; prefer **5–8** trends over a long list.
+
+### 4) Translate trends into backlog candidates (secondary deliverable)
+
+Create **6–12** candidate ideas, derived from the trends (not one-off asks).
+
+Each candidate must include:
+
+- **Problem** (1 sentence, user language)
+- **Proposed change** (2–4 bullets, solution space)
+- **Who is impacted** (if known)
+- **Success metric** (one measurable metric; can be product usage, time-to-task, failure rate, activation, retention, etc.)
+- **Evidence**: cite **at least 2** distinct records (unless you only ingested 1 record total)
+- **Confidence note**: what you’re least sure about / what data is missing
+
+### 5) Output (chat only)
+
+Use this exact template.
+
+```markdown
+## Customer discovery summary
+- **Sources used**: [tool(s) + CSV filenames/paths]
+- **Records ingested**: [N] (date range if known)
+- **Coverage notes**: [caps, missing fields, sampling caveats]
+
+## Key trends (themes)
+1) **[Trend theme]**
+   - **Frequency**: [k/N] ([%])
+   - **Who/where**: [segment/persona/product area if known]
+   - **Structured slices (if available)**: [e.g. “mostly desktop”, “spikes in v1.1”, “mostly support tickets”, “open+medium severity”]
+   - **Why it matters**: [1–2 sentences]
+   - **Underlying outcome (opportunity)**: [1 sentence]
+   - **Evidence**:
+     - [Record title] — [link/id or CSV row ref] — “[…]”
+     - [Record title] — [link/id or CSV row ref] — “[…]”
+
+... (5–8 trends total)
+
+## Backlog candidates (derived from trends)
+1) **[Idea title]** ([Bug] / [New Feature] / [UX Improvement])
+   - **Problem**: [1 sentence]
+   - **Who is impacted**: [persona / customer type, if known]
+   - **Proposed change**:
+     - [bullet]
+     - [bullet]
+   - **Success metric**: [one measurable metric]
+   - **Evidence (records)**:
+     - [Record title] — [link/id or CSV row ref] — “[…]”
+     - [Record title] — [link/id or CSV row ref] — “[…]”
+   - **Confidence / open questions**: [1–2 bullets]
+
+... (6–12 candidates total)
+```
+
+## Hard rules
+
+- **No writes**: do not change any source system state (including “AI analyzed” columns), do not create columns, do not add updates/comments, do not create backlog items.
+- **Evidence required**: every trend and candidate must cite real records; if evidence is weak, say so.
+- **No hallucinations**: if a field doesn’t exist, state it as missing.
+- **Prefer trends over anecdotes**: highlight what repeats and quantify frequency whenever possible.
 
