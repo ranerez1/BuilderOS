@@ -109,7 +109,7 @@ Each candidate must include:
 - **Evidence**: cite **at least 2** distinct records (unless you only ingested 1 record total)
 - **Confidence note**: what you’re least sure about / what data is missing
 
-### 5) Output (chat only)
+### 5) Output (chat + file)
 
 Use this exact template.
 
@@ -146,6 +146,17 @@ Use this exact template.
 
 ... (6–12 candidates total)
 ```
+
+### 6) Save output to file (local)
+
+Also save the same markdown output to:
+
+- Folder: `Outputs/Discovery/` (create if missing)
+- Filename:
+  - `Outputs/Discovery/YYYY-MM-DD_customer-discovery.md`
+  - If a single dominant source exists, append a short slug, e.g. `YYYY-MM-DD_customer-discovery_meetings.md`
+
+The saved file must match the chat output verbatim (no extra sections).
 
 ## Hard rules
 
