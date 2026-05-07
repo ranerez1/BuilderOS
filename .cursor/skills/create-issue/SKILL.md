@@ -10,7 +10,7 @@ User is mid-development and thought of a bug/feature/improvement. Capture it fas
 ## Configuration
 
 > Before running, read **`Knowledge/workspace-tools.md`** and use the values under **Backlog**.
-> Board URL, board ID, and MCP server name all come from that file.
+> Tool URL/ID (if any) and MCP server name all come from that file.
 
 ## Your goal
 
@@ -27,11 +27,11 @@ Create a complete backlog issue with:
 ## Where to create it
 
 - **MCP server:** see **Backlog** entry in `Knowledge/workspace-tools.md`
-- **Board:** the **Backlog** board (URL and ID from `Knowledge/workspace-tools.md`)
+- **Target**: the **Backlog** destination (URL/ID from `Knowledge/workspace-tools.md`, if provided)
 
 ### Column ids
 
-Always call `get_board_info` first to get live column ids and labels for your specific board. The values below are an example snapshot from one board setup — they will differ on other boards.
+Always inspect the tracker MCP’s tool descriptors (and/or call its “schema/metadata” tool, if available) to get live field ids and allowed values for your specific workspace. The values below are an example snapshot from one setup — they will differ elsewhere.
 
 - **Status**: `color_mm1ttsmx` (labels include: Ready for dev, Not Started, Pending QA, Verified Done!, Check if possible)
 - **Type**: `color_mm1tz08t` (labels include: Bug, New Feature, UX Improvement, Marketplace requirement, Google Requirement)
@@ -45,7 +45,7 @@ Always call `get_board_info` first to get live column ids and labels for your sp
 If the user wants to attach a file to the issue:
 
 - First call `get_board_info` and check whether the backlog board has a **file** column.
-- If a file column exists, use `Tools/monday-file-upload` to upload the file to that column.
+- If a file column exists, use whatever attachment flow is configured for this workspace (see `Knowledge/workspace-tools.md`).
 - If the board has **no** file column, fall back to:
   - posting the file’s **link** (Drive/Slack/etc.) in the update, or
   - describing where the file lives locally (if the user is okay with that).
@@ -82,35 +82,23 @@ Hard rules:
 
 ## Create the issue (writes)
 
-1. **Create the item** (`create_item`)
-   - `boardId`: board ID from `Knowledge/workspace-tools.md` (under **Backlog**)
+1. **Create the item** (exact MCP tool name varies; inspect descriptors)
+   - Use the target identifier from `Knowledge/workspace-tools.md` (under **Backlog**) when required by the MCP
    - `name`: value-focused title
-   - `columnValues`: JSON string with:
-     - `color_mm1ttsmx`: status label (default `Not Started`)
-     - `color_mm1tz08t`: type label (Bug/New Feature/UX Improvement/…)
-     - `color_mm1tbvjg`: priority label (default `Medium Priority`)
-     - Optional: `color_mm1t9c72` (Area) if obvious
-     - Optional: `text_mm1tsn5f` with a short TL;DR (keep it short)
+   - Set the equivalent of:
+     - status (default `Not Started`)
+     - type (Bug/New Feature/UX Improvement/…)
+     - priority (default `Medium Priority`)
+     - optional: area/component (if obvious)
+     - optional: short TL;DR (keep it short)
 
 2. **(Optional) Upload attachment(s) to a file column**
    - **Precondition:** backlog board has a **file** column (verify via `get_board_info`).
-   - Use the local CLI tool `Tools/monday-file-upload` (multipart upload) for binaries.
-   - **Requirements:**
-     - Environment variable `MONDAY_API_TOKEN` must be set (the CLI does not use MCP auth).
-     - You need the **item id** (from step 1) and the **file column id** (from `get_board_info`).
-     - You need a **local absolute path** to the file.
-   - Command pattern:
+   - Use whatever attachment flow is configured for this workspace (see `Knowledge/workspace-tools.md`).
+   - If upload isn’t possible (no file column / missing credentials / no local path), include a link or filename reference in the update instead.
 
-     ```bash
-     cd Tools/monday-file-upload && npm install && npm run build   # once
-     export MONDAY_API_TOKEN="..."
-     node dist/cli.js --item <ITEM_ID> --column <FILE_COLUMN_ID> --file "/absolute/path/to/file.ext"
-     ```
-
-   - If upload isn’t possible (no file column / no token / no local path), include a link or filename reference in the update instead.
-
-3. **Add the description as an update** (`create_update`)
-   - Use **HTML** body so it’s readable in monday.
+3. **Add the description as an update/comment**
+   - Use an **HTML** body so it’s readable in the tracker UI.
    - Structure:
      - **TL;DR**
      - **Current → Expected**

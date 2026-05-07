@@ -179,7 +179,7 @@ At the top or bottom of the PRD, include:
 
 Create the markdown file under `Outputs/Product PRDs/`.
 
-### 5) Post to monday as an update (always)
+### 5) Post to the tracker as an update (always)
 
 Post an update to the backlog item via `create_update` with:
 
@@ -187,7 +187,7 @@ Post an update to the backlog item via `create_update` with:
 - A reference to the saved file path
 - The PRD body pasted below (preferred when file upload isn’t available)
 
-Use **HTML** so it reads well in monday. Template:
+Use **HTML** so it reads well in the tracker UI. Template:
 
 ```html
 <p><strong>PRD</strong></p>
@@ -202,25 +202,13 @@ Use **HTML** so it reads well in monday. Template:
 
 If the board has a file column:
 
-1. Prefer attaching the `.md` file to the item’s **Files** column using the local CLI tool `Tools/monday-file-upload`.
-2. Requirements:
-   - `MONDAY_API_TOKEN` present (the CLI does not use MCP auth)
-   - item id
-   - file column id (from `get_board_info`)
-   - absolute local file path
-
-Command pattern:
-
-```bash
-cd Tools/monday-file-upload && npm install && npm run build   # once
-export MONDAY_API_TOKEN="..."
-node dist/cli.js --item <ITEM_ID> --column <FILE_COLUMN_ID> --file "/absolute/path/to/prd.md"
-```
+1. Prefer attaching the `.md` file to the item’s **Files** (or equivalent) column using whatever attachment flow is configured for this workspace.
+2. **Do not hardcode** any vendor-specific CLI/tooling here. If an attachment helper exists, it must be referenced from `Knowledge/workspace-tools.md` only.
 
 Fallbacks (in order):
 
-- If upload can’t be done, paste the full PRD in the monday update body (step 5).
-- If the PRD is too long for monday, paste only sections (TL;DR, Goals, Requirements, Acceptance criteria, Open questions) and keep the full PRD in the repo file.
+- If upload can’t be done, paste the full PRD in the item update body (step 5).
+- If the PRD is too long for the tracker update UI, paste only sections (TL;DR, Goals, Requirements, Acceptance criteria, Open questions) and keep the full PRD in the repo file.
 
 ## Output (to the user)
 

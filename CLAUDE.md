@@ -1,9 +1,9 @@
 # PM Context
 
 - **Role:** Product Manager / Product Ops
-- **Company:** BuilderOS (personal PM infrastructure)
+- **Company:** BuilderOS (PM infrastructure)
 - **Product:** BuilderOS — a modular, MCP-integrated PM operations framework that automates product workflows from discovery to release using Claude AI + connected tools (Monday.com, Mixpanel, Notion, Jira, Linear)
-- **Target users:** Product managers and product leaders who use Monday.com/Jira/Linear for backlogs, Mixpanel/Amplitude for analytics, and Notion/Slack for documentation and communication
+- **Target users:** Product managers and product leaders using a tracker (e.g. Jira/Linear/GitHub Issues), an analytics tool (e.g. Mixpanel/Amplitude/PostHog), and a docs/comms stack (e.g. Notion/Slack)
 - **Current focus:** Expanding the skill library and metric-driven product planning; end-to-end workflow from backlog item → PRD → implementation → release tracking → retrospective
 - **Primary metric:** Cycle time from problem identification to validated release (instrumented per workflow run)
 - **Guardrails:**
@@ -25,7 +25,7 @@
 | **TL;DR (GIFTS)** | PRD format: Goal, Insights, Focus, Trade-offs, Suggested solution, Success |
 | **RICE** | Backlog prioritization: Reach, Impact, Confidence, Effort |
 | **Skill** | Reusable AI-powered task (e.g., `/metric-tree-builder`, `/create-prd`) in `.claude/commands/` |
-| **Board** | Monday.com (or swappable Jira/Linear) project for Backlog, Releases, Tickets, etc. |
+| **Board** | A tracker project for Backlog, Releases, Tickets, etc. (vendor-agnostic) |
 | **MCP server** | API gateway connecting Claude to external tools (Monday, Mixpanel, Notion) |
 | **Workflow** | Core loop: backlog item → PRD → implementation → commit → release tracking |
 
@@ -101,13 +101,7 @@ Domain knowledge → skills. Scoped rules → `.claude/rules/`. Universal behavi
 
 ## MCP Connections
 
-| Tool | Purpose | MCP Server | Board ID |
-|------|---------|------------|----------|
-| **Backlog** | Feature/bug items | `monday-ran-erez-mcp` | `5093728739` |
-| **Release Board** | Version tracking | `monday-ran-erez-mcp` | `5093729041` |
-| **Customer Meeting Transcripts** | User research | `monday-ran-erez-mcp` | `5093729255` |
-| **Support Tickets** | Customer issues | `monday-ran-erez-mcp` | `5093729699` |
-| **Analytics** | Product metrics | `user-mixpanel` | N/A |
+Connection details (tool URLs/IDs, MCP server names) live in:
 
 Config reference: [Knowledge/workspace-tools.md](Knowledge/workspace-tools.md)
 

@@ -83,7 +83,7 @@ Output a **flat list** of backlog-candidate ideas. Each idea must include eviden
 
 ## Hard rules
 
-- **No writes**: do not create items, updates, or change columns on any monday board.
+- **No writes**: do not create items, updates, or change columns on any support-ticket board.
 - **Evidence required**: every backlog candidate must cite at least **2** supporting tickets (unless there is only 1 open ticket in total; then note that).
 - **No hallucinations**: if a column/value isn’t present, say so; don’t invent priorities/customers/dates.
 - **Actionable wording**: phrase ideas as product changes (not “support should…”).

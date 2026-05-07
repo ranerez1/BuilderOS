@@ -27,7 +27,7 @@ Use a consistent RICE-style rubric and write back the values.
 - **Don’t fabricate facts.** If the item lacks context, still fill the fields using a conservative rubric:
   - Keep **Confidence low**.
   - Prefer smaller **Reach** and higher **Effort** when unclear.
-  - Add a monday **update** noting assumptions + what data would raise confidence.
+  - Add an **item update** noting assumptions + what data would raise confidence.
 - **Prefer relative sizing.** RICE is a ranking tool; use it to compare items, not to claim exact outcomes.
 
 ## Scales and mappings (match board schema)
@@ -36,7 +36,7 @@ Always adapt to the **actual column types** returned by `get_board_info`.
 
 ### This board (current structure)
 
-On the **Backlog** board (ID from `Knowledge/workspace-tools.md`), these are **status** columns with labels (example from a Monday.com backlog board — verify with `get_board_info` for your actual board):
+On the **Backlog** board (ID from `Knowledge/workspace-tools.md`), these are **status** columns with labels (example from one common backlog setup — verify with `get_board_info` for your actual board):
 
 - Reach: `High | Medium | Low`
 - Impact: `High | Medium | Low`
@@ -115,7 +115,7 @@ Heuristics:
   - Higher with unknown dependencies, migrations, auth/permissions, multi-surface UI, data model changes.
   - Lower for isolated UI copy tweaks, small bug fixes with clear repro, single-file changes.
 
-### 4) Write values back to monday (only missing fields)
+### 4) Write values back to the tracker (only missing fields)
 
 For each item:
 

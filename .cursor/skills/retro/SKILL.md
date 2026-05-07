@@ -18,7 +18,7 @@ Prefer being **specific and actionable** over being exhaustive.
 Gather (ask only if missing):
 
 - **Work item**: feature or bugfix name
-- **Identifier(s)** (any that exist): ticket id, monday item id, PR link/number, commit hash, doc slugs
+- **Identifier(s)** (any that exist): ticket id, tracker item id, PR link/number, commit hash, doc slugs
 - **Outcome**: shipped / reverted / partially shipped
 - **Scope delta**: what changed vs original plan (if any)
 - **Timeline**: start → ship date (rough)
