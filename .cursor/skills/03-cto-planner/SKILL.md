@@ -1,142 +1,123 @@
 ---
 name: 03-cto-planner
-description: Reviews initiative candidates (preferably from /02-pm-planner) from a technical perspective and produces a CTO-grade plan: architecture options, dependencies, non-functional requirements, edge cases, rollout, sequencing, and engineering risks. Use when the user asks for a CTO plan or runs /03-cto-planner.
+description: Technical brainstorm partner that stress-tests an initiative against the existing codebase to surface gaps, edge cases, and open questions before writing a TDD. Run after /02-pm-planner and before /05-prd-to-tech-plan to make the resulting Technical Design Doc grounded and actionable. Use when the user asks for a technical brainstorm, pre-TDD review, or runs /03-cto-planner.
 ---
 
-# CTO Planner
+# Technical Brainstorm (pre-TDD)
 
-Turn a product initiative into a **technical strategy + execution plan** that engineering leadership can sanity-check quickly, and that helps a PM refine scope based on technical realities.
+This is a **technical brainstorm partner**, not a CTO execution plan and **not a TDD**. The goal is to ground an initiative in the actual codebase and produce the **questions, gaps, and edge cases** that will make `/05-prd-to-tech-plan` produce a much better Technical Design Doc.
+
+- Run **after** `/02-pm-planner` (chosen initiative + MVP shape).
+- Run **before** `/05-prd-to-tech-plan` so the TDD isn't hand-wavy.
+- Output is **chat only** — a structured brainstorm the PM and engineering iterate on together.
 
 ## Inputs (ask only if missing)
 
-- **Preferred input**: paste the output of **`/02-pm-planner`** (initiative candidates + evidence + options + recommendation).
+- **Preferred input**: paste the output of **`/02-pm-planner`** (chosen initiative + MVP scope + non-goals + evidence).
 - If not available, gather:
   - **Initiative**: name + 1–2 lines
-  - **Context**: why now, constraints, dependencies
-  - **Non-functional needs**: latency, scale, reliability, security/compliance, data retention
-  - **Target release shape**: MVP vs phased rollout
+  - **Chosen candidate / MVP shape**: what specifically is in scope
+  - **Non-goals**: what is explicitly out
+  - **Constraints**: timing, platform, dependencies, compliance
+  - **Non-functional needs (if any are known)**: latency, scale, reliability, security/compliance, data retention
+
+Mark unknowns with `[NEED: ...]` (matching the `/02-pm-planner` convention).
 
 ## Workflow
 
-### 1) Translate PM intent into technical problem statements
+### 1) Ingest PM intent (no re-derivation)
 
-- Restate:
+- Restate from the PM Plan:
   - **Outcome** (what changes for users)
   - **MVP scope** vs **non-goals**
-  - **Evidence** (so we don’t overbuild)
-- Identify the “technical question” behind the initiative:
-  - Where does state live?
-  - What are the boundaries/interfaces?
-  - What must be reliable/secure?
+  - **Evidence** (so we don't overbuild)
+- **Discovery-first branch**: if the PM picked a discovery / validation candidate, shift focus to "what would we instrument and what data would tell us this works" — do **not** stress-test architecture for a feature that hasn't been validated yet.
 
-### 2) Discover technical requirements + constraints (make them explicit)
+### 2) Targeted codebase scan
 
-- Summarize the **current state** (what exists today, sharp edges).
-- Identify **key constraints** and **guardrails**.
-  - data model/schema constraints
-  - authorization/privacy constraints
-  - performance/latency constraints
-  - platform constraints (web/mobile/desktop)
-  - integration constraints (3rd party APIs, rate limits)
+Stay grounded in the actual repo.
 
-### 3) Edge cases & failure modes (so scope is real)
+- Identify the **likely-affected modules / files** from the initiative description.
+- Read those files, then follow imports **1 hop** to understand neighbors.
+- Note existing patterns near the change site:
+  - auth / authorization
+  - error handling
+  - logging
+  - data access / ORM / queries
+  - feature flags / config
+- Identify **public contracts** that might be affected (APIs, events, schemas, shared interfaces).
 
-- Enumerate the top edge cases for MVP:
-  - empty states, partial state, invalid inputs
-  - concurrency (multi-device, retries, offline)
-  - timezone/locale formatting (if time/date involved)
-  - permission denied / missing entitlements
-- Enumerate failure modes:
-  - network failures, API timeouts, partial writes
-  - data corruption / migration mismatch
-  - third-party degradation
-- For each, propose an MVP handling strategy (block / degrade / recover / ignore-with-guardrail).
+### 3) Map current state → desired state
 
-### 4) Architectural direction (options + decision)
+- Where the change would live (packages / modules).
+- Patterns to **follow** vs. patterns to **deliberately diverge** from (and why).
+- **Sharp edges**: legacy code, technical debt, hidden coupling that the initiative would touch.
 
-- Propose **2 viable approaches**:
-  - “Evolve existing system” vs “New component/service” (or equivalent)
-  - Include boundaries, ownership, and main interfaces
-- Make the trade-off explicit (time, risk, complexity, operability).
-  - Include “buy vs build” only when it’s realistic in the constraints and timeline.
+### 4) Surface gaps & questions (core deliverable)
 
-### 5) Delivery plan (phases + sequencing)
+- **Edge cases**: empty / partial state, concurrency (multi-device, retries, offline), timezone / locale, permission denied / missing entitlements.
+- **Failure modes**: network failures, API timeouts, partial writes, data corruption / migration mismatch, third-party degradation.
+  - For each, suggest an MVP handling stance: **block / degrade / recover / ignore-with-guardrail**.
+- **Data**: schema impact, migrations, backfill, backwards compatibility.
+- **Auth / privacy**: who can see / do what, PII boundaries.
+- **Performance**: hot paths, N+1, caching, latency budgets.
+- **Observability**: how would we know it's working / broken (logs, metrics, traces, alerts)?
+- **Open questions for PM** (the most valuable output): what scope / sequencing / UX decision would change the technical answer? Each question gets a **PM-facing implication** (what changes if the PM picks A vs B).
 
-- Slice into **small, shippable phases**:
-  - Phase 0: spikes / instrumentation / migrations prep
-  - Phase 1: MVP
-  - Phase 2: hardening + scale
-- Include feature flag / rollout strategy when risk is non-trivial.
-  - Include migration sequencing and backfill strategy when schema changes exist.
+### 5) Risks & off-ramps (grounded in code)
 
-### 6) Engineering risk register (plus PM-facing implications)
+- Top 3–5 risks specifically grounded in findings from Steps 2–3 (not generic).
+- **Kill criteria / off-ramps**: what would tell us to stop or change course (e.g., spike result, dependency unavailable, data not present).
+- For each risk → **what the PM should consider changing** (scope, sequencing, guardrails, comms).
 
-- List top risks + mitigation:
-  - migration/backcompat
-  - data integrity
-  - performance
-  - security/privacy
-  - operational burden (on-call, monitoring)
-  - For each risk, include: **what the PM should change** (scope, sequencing, guardrails, comms).
+### 6) Pre-TDD checklist (explicit handoff)
 
-### 7) Resourcing & ownership
-
-- Identify needed roles (backend/frontend/data/infra/design/QA) and likely bottlenecks.
-  - Flag dependencies that require other teams or long lead time.
+- **Decisions to lock before `/05-prd-to-tech-plan`** (so the TDD has concrete inputs).
+- **Specific files / modules / contracts the TDD must reference**.
+- **Unknowns to resolve**, marked `[NEED: ...]`.
 
 ## Output (chat)
 
+Return a single markdown brainstorm using this template:
+
 ```markdown
-## CTO Plan: [initiative]
+## Technical Brainstorm: [initiative]
 
 ### PM intent (as understood)
 - Outcome:
 - MVP scope:
 - Non-goals:
-- Evidence (why this is worth doing):
+- Evidence:
 
-### Current state
-- ...
+### Codebase findings (targeted scan)
+- Likely-affected modules / files:
+- Existing patterns to follow (auth / errors / logging / data access / feature flags):
+- Sharp edges / legacy / hidden coupling:
+- Public contracts at risk:
 
-### Constraints / guardrails
-- ...
-
-### Technical requirements & edge cases (MVP)
-- Requirements:
+### Edge cases & failure modes
 - Edge cases:
-- Failure modes + handling:
+- Failure modes + handling (block / degrade / recover / ignore-with-guardrail):
 
-### Architecture options
-#### Option A
-- Approach:
-- Interfaces/contracts:
-- Pros:
-- Cons:
+### Data / auth / performance / observability
+- Data / schema / migrations:
+- Auth / privacy:
+- Performance / hot paths / latency budget:
+- Observability (how we'd know it works / breaks):
 
-#### Option B
-- Approach:
-- Interfaces/contracts:
-- Pros:
-- Cons:
+### Open questions for PM (ordered by leverage)
+1. Question — PM implication (scope / sequencing / guardrail change):
+2. ...
 
-### Recommendation
-- Decision:
-- Why:
-- PM implications (scope/trade-offs):
+### Risks & off-ramps
+- Risks (grounded in code):
+- Kill criteria / off-ramps:
+- For each risk → PM implication:
 
-### Execution plan
-- Phase 0:
-- Phase 1 (MVP):
-- Phase 2 (hardening):
-
-### Rollout / risk management
-- Feature flags:
-- Backward compatibility:
-- Rollback strategy:
-
-### Risks & mitigations
-- ...
-
-### Resourcing / ownership
-- ...
+### Pre-TDD checklist
+- Decisions to lock before `/05-prd-to-tech-plan`:
+- Files / modules / contracts the TDD must reference:
+- Unknowns to resolve: `[NEED: ...]`
 ```
+
+Related: once gaps and questions are answered, run `/05-prd-to-tech-plan` to produce the TDD.
