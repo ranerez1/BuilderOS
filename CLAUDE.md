@@ -111,5 +111,5 @@ Config reference: [Knowledge/workspace-tools.md](Knowledge/workspace-tools.md)
 
 - PRDs → `Outputs/Product PRDs/YYYY-MM-DD_<itemId>_<slug>.md`
 - Technical Design Docs → `Outputs/Technical Docs/`
-- Retrospectives → `Learnings/`
+- Learnings / retros (`/09-learn`) → `Learnings/` (ship retro, process feedback, or skill-tuning)
 
