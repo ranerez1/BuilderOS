@@ -22,6 +22,9 @@ Gather (ask only if missing):
 - **Scope**: in / out (2–8 bullets)
 - **Constraints**: timeline, backwards-compat, dependencies, compliance/security, infra limits
 - **Success signal**: how we’ll know it worked (1–3 measurable signals)
+- **Codebase context** _(optional)_: path(s) to the relevant repo(s)/modules/services.
+  - If **provided or detectable** (workspace is a repo): ground decisions in existing patterns and cite real modules/files in the TDD.
+  - If **absent** (new project / no repo yet): proceed with explicit assumptions and capture them under **Open questions**; mark the TDD as _New project_ in **Status**.
 
 Defaults when unclear:
 
@@ -63,6 +66,7 @@ Write the doc using this exact structure (omit sections only if truly irrelevant
 
 ## Status
 - **Mode**: Pre-build | Post-build
+- **Codebase**: Existing codebase | New project
 - **Owner**:
 - **Last updated**: YYYY-MM-DD
 
@@ -80,9 +84,9 @@ Write the doc using this exact structure (omit sections only if truly irrelevant
 - ...
 
 ## Current state (baseline)
-- What exists today:
+- What exists today: <!-- or "New project: no existing codebase; assumed stack = …" -->
 - Constraints / sharp edges:
-- Relevant modules/files:
+- Relevant modules/files: <!-- omit or write "N/A (new project)" if no repo -->
 
 ## Proposed solution
 ### High-level approach
@@ -169,13 +173,20 @@ Break into small, shippable slices.
 - If the user is about to build: **Pre-build**.
 - If the feature already shipped or is being documented: **Post-build** and include the **Appendix** section.
 
-### 2) Read the repo enough to be correct
+### 2) Read the repo enough to be correct (if a codebase is available)
 
-Do lightweight investigation to avoid hand-wavy design:
+**If a codebase is available**, do lightweight investigation to avoid hand-wavy design:
 
 - Identify the likely touched packages/modules
 - Identify existing patterns to follow (config, logging, errors, auth, API style)
 - If migrations or public contracts are involved, locate the existing migration/contract conventions
+- Cite concrete file paths in **Current state (baseline) → Relevant modules/files**
+
+**If no codebase is available** (new project):
+
+- Skip repo investigation; do **not** invent file paths or modules
+- State the assumed tech stack/architecture explicitly in **Current state (baseline) → What exists today** (e.g., "New project: assumed stack is …")
+- Move all stack/architecture choices that depend on existing code into **Open questions**
 
 ### 3) Write the TDD
 
