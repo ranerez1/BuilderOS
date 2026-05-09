@@ -9,12 +9,13 @@ This is a **technical brainstorm partner**, not a CTO execution plan and **not a
 
 - Run **after** `/02-pm-planner` (chosen initiative + MVP shape).
 - Run **before** `/05-prd-to-tech-plan` so the TDD isn't hand-wavy.
-- Output is **chat only** — a structured brainstorm the PM and engineering iterate on together.
 
 ## Inputs (ask only if missing)
 
-- **Preferred input**: paste the output of **`/02-pm-planner`** (chosen initiative + MVP scope + non-goals + evidence).
-- If not available, gather:
+- **Preferred inputs** (auto-ingest when available):
+  - `Outputs/Planning/<initiative>/pm-high-level.md` (or highest `pm-high-level_vN.md`)
+  - `Outputs/Planning/<initiative>/design-high-level.md` (or highest `design-high-level_vN.md`)
+- If those are not available, gather:
   - **Initiative**: name + 1–2 lines
   - **Chosen candidate / MVP shape**: what specifically is in scope
   - **Non-goals**: what is explicitly out
@@ -24,6 +25,26 @@ This is a **technical brainstorm partner**, not a CTO execution plan and **not a
 Mark unknowns with `[NEED: ...]` (matching the `/02-pm-planner` convention).
 
 ## Workflow
+
+### 0) Pull in existing workspace context (before asking questions)
+
+Before asking the user for missing inputs, scan for relevant context and reuse it.
+
+- Look for anything relevant in:
+  - `Knowledge/`
+  - `Learnings/`
+  - `Outputs/Planning/<initiative>/` (if initiative is known)
+- If initiative planning files exist, **use them as upstream context** (do not summarize; use directly) instead of asking the user to paste them.
+
+### 0.5) Reuse existing initiative planning outputs (when available)
+
+If `Outputs/Planning/<initiative>/` exists, load these as upstream context (do not summarize; use directly):
+
+- `pm-high-level.md` and any `pm-high-level_v*.md`
+- `design-high-level.md` and any `design-high-level_v*.md`
+- `tech-high-level.md` and any `tech-high-level_v*.md`
+
+If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise use the base file.
 
 ### 1) Ingest PM intent (no re-derivation)
 
@@ -76,12 +97,36 @@ Stay grounded in the actual repo.
 - **Specific files / modules / contracts the TDD must reference**.
 - **Unknowns to resolve**, marked `[NEED: ...]`.
 
-## Output (chat)
+## Output (files)
 
-Return a single markdown brainstorm using this template:
+Write a single markdown file to:
+
+- Directory: `Outputs/Planning/<initiative>/`
+- File: `tech-high-level.md`
+
+### Folder handling
+
+- Ensure `Outputs/Planning/` exists.
+- Ensure `Outputs/Planning/<initiative>/` exists (create if missing).
+
+### Existing file handling
+
+- If `tech-high-level.md` does **not** exist, create it.
+- If `tech-high-level.md` **does** exist, ask the user whether to:
+  - **Update existing** (overwrite `tech-high-level.md`), or
+  - **Create new version** (write `tech-high-level_vN.md`)
+
+### Version naming (`_vN`)
+
+- Use the next available integer `N` based on files matching `tech-high-level_v*.md` in the initiative folder.
+- If `tech-high-level.md` exists and no versions exist, the first version is `tech-high-level_v2.md`.
+
+### File contents
+
+Use this template:
 
 ```markdown
-## Technical Brainstorm: [initiative]
+## Tech High-Level: [initiative]
 
 ### PM intent (as understood)
 - Outcome:

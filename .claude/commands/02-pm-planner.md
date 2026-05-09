@@ -25,9 +25,20 @@ Before asking the user for missing inputs, scan for relevant context and reuse i
   - `Knowledge/02-Product-Knowledge/`
   - `Knowledge/03-Market-Knowledge/`
   - `Knowledge/04-ICP/`
+  - `Learnings/`
   - `Outputs/Discovery/`
 - Extract and cite the **highest-signal facts** (problem evidence, ICP details, constraints, competitive notes, prior decisions, metrics baselines).
 - If these folders are empty or not relevant, proceed without them (don’t fabricate).
+
+### 0.5) Reuse existing initiative planning outputs (when available)
+
+If the initiative name is known and `Outputs/Planning/<initiative>/` exists, load these as upstream context (do not summarize; use directly):
+
+- `pm-high-level.md` and any `pm-high-level_v*.md`
+- `design-high-level.md` and any `design-high-level_v*.md`
+- `tech-high-level.md` and any `tech-high-level_v*.md`
+
+If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise use the base file.
 
 ### 1) Clarify the problem (no solution yet)
 
@@ -91,12 +102,36 @@ Then provide:
 - Define **one primary success metric** and **1–2 supporting signals** that tie to the chosen initiative.
 - Add **leading indicators** only when they are obvious from an existing baseline or prior instrumentation; otherwise omit or use `[NEED: ...]` instead of inventing a tracking design.
 
-## Output (chat)
+## Output (files)
 
-Return a single markdown plan using this template:
+Write a single markdown file to:
+
+- Directory: `Outputs/Planning/<initiative>/`
+- File: `pm-high-level.md`
+
+### Folder handling
+
+- Ensure `Outputs/Planning/` exists.
+- Ensure `Outputs/Planning/<initiative>/` exists (create if missing).
+
+### Existing file handling
+
+- If `pm-high-level.md` does **not** exist, create it.
+- If `pm-high-level.md` **does** exist, ask the user whether to:
+  - **Update existing** (overwrite `pm-high-level.md`), or
+  - **Create new version** (write `pm-high-level_vN.md`)
+
+### Version naming (`_vN`)
+
+- Use the next available integer `N` based on files matching `pm-high-level_v*.md` in the initiative folder.
+- If `pm-high-level.md` exists and no versions exist, the first version is `pm-high-level_v2.md`.
+
+### File contents
+
+Use this template:
 
 ```markdown
-## PM Plan: [initiative]
+## PM High-Level: [initiative]
 
 ### Problem & outcome
 - **People problem**:
