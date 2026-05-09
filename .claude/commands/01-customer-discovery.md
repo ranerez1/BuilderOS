@@ -1,13 +1,12 @@
-Analyze customer feedback (meetings/calls/notes/CSV exports) and synthesize key trends + backlog candidates.
+Analyze customer feedback (meetings/calls/notes/CSV exports) and synthesize the top user-problem trends (problem space only).
 
-# 01 Customer Discovery → trends + backlog candidates (read-only)
+# 01 Customer Discovery → top problem trends (read-only)
 
 Turn customer feedback (meetings, calls, notes, CSV exports, etc.) into:
 
-- Key **trends/themes** (what repeats, who it affects, and why it matters now)
-- A short list of **high-signal backlog candidates** with evidence
+- Up to **5 key trends/themes** that reveal the **core user problems** (what repeats, who it affects, and why it matters now)
 
-This command is **read-only**: do not update any “AI analyzed”/status fields, do not write back to the source tool, and do not create backlog items.
+This command is **read-only**: do not write back to the source tool, and do not create backlog items.
 
 ## Configuration
 
@@ -117,20 +116,9 @@ If available, add 1–2 “structured slices” per trend (only when evidence ex
 
 De-duplicate aggressively; prefer **5–8** trends over a long list.
 
-### 4) Translate trends into backlog candidates (secondary deliverable)
+De-duplicate aggressively; prefer **up to 5** trends over a long list.
 
-Create **6–12** candidate ideas, derived from the trends (not one-off asks).
-
-Each candidate must include:
-
-- **Problem** (1 sentence, user language)
-- **Proposed change** (2–4 bullets, solution space)
-- **Who is impacted** (if known)
-- **Success metric** (one measurable metric; can be product usage, time-to-task, failure rate, activation, retention, etc.)
-- **Evidence**: cite **at least 2** distinct records (unless you only ingested 1 record total)
-- **Confidence note**: what you’re least sure about / what data is missing
-
-### 5) Output (chat only)
+### 4) Output (chat only)
 
 Use this exact template.
 
@@ -151,28 +139,13 @@ Use this exact template.
      - [Record title] — [link/id or CSV row ref] — “[…]”
      - [Record title] — [link/id or CSV row ref] — “[…]”
 
-... (5–8 trends total)
-
-## Backlog candidates (derived from trends)
-1) **[Idea title]** ([Bug] / [New Feature] / [UX Improvement])
-   - **Problem**: [1 sentence]
-   - **Who is impacted**: [persona / customer type, if known]
-   - **Proposed change**:
-     - [bullet]
-     - [bullet]
-   - **Success metric**: [one measurable metric]
-   - **Evidence (records)**:
-     - [Record title] — [link/id or CSV row ref] — “[…]”
-     - [Record title] — [link/id or CSV row ref] — “[…]”
-   - **Confidence / open questions**: [1–2 bullets]
-
-... (6–12 candidates total)
+... (1–5 trends total)
 ```
 
 ## Hard rules
 
-- **No writes**: do not change any source system state (including “AI analyzed” columns), do not create columns, do not add updates/comments, do not create backlog items.
-- **Evidence required**: every trend and candidate must cite real records; if evidence is weak, say so.
+- **No writes**: do not change any source system state, do not create columns, do not add updates/comments, do not create backlog items.
+- **Evidence required**: every trend must cite real records; if evidence is weak, say so.
 - **No hallucinations**: if a field doesn’t exist, state it as missing.
 - **Prefer trends over anecdotes**: highlight what repeats and quantify frequency whenever possible.
 
