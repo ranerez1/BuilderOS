@@ -1,10 +1,10 @@
-Turn an unstructured problem space into 2–3 initiative candidates, then a crisp pre-PRD plan.
+Turn an unstructured problem space into 2–3 initiative candidates, then a focused kickoff one-pager for the selected initiative.
 
-# PM Planner (problem → initiatives → pre-PRD)
+# PM Planner (problem → candidate initiatives → kickoff one-pager)
 
-This is a **problem-to-initiative planning tool**: start with messy inputs (observations, complaints, hypotheses) and converge on **potential initiatives** that could address the problem.
+This is a **problem-to-initiative planning tool**: start with messy inputs (observations, complaints, hypotheses), propose **2–3 potential initiatives**, then write a focused **Feature Kickoff One-Pager** only for the selected initiative.
 
-It is **not a full PRD**. The goal is to help a PM transition from **problem space → solution space**, align on direction with design/engineering, and only then write a full PRD.
+It is **not a full PRD**. The goal is to help a PM transition from **problem space → selected direction**, align with design/engineering, and only then write a full PRD.
 
 ## Inputs (ask only if missing)
 
@@ -13,7 +13,7 @@ It is **not a full PRD**. The goal is to help a PM transition from **problem spa
 - **Target user + scenario** (who, when, why)
 - **People problem + evidence** (required; 2–5 bullets, use `[NEED: ...]` for gaps)
 - **Constraints**: timing, platform, dependencies, compliance, stakeholders
-- **Baseline + success**: current state + 1–2 measurable success signals (keep light; detailed metrics come only after direction is set)
+- **Baseline + success**: current state + 1–2 measurable success signals (keep light; detailed metrics come only after direction is selected)
 
 ## Workflow
 
@@ -50,10 +50,8 @@ If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise u
 
 ### 2) Define the decision you need
 
-- What decision do we need from the team? (ship vs not, MVP shape, sequencing, trade-offs)
+- What decision do we need from the team? (which initiative to pursue, MVP shape, sequencing, trade-offs)
 - What “must be true” for this to succeed?
-
-
 
 ### 3) Propose initiative candidates + recommended shape
 
@@ -61,46 +59,61 @@ If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise u
 - When evidence is weak, include a **discovery-first candidate** alongside any build candidates; do not pretend the solution space is settled.
 - For each candidate, include:
   - **One-liner** (what it is)
-  - **Who it’s for / when**
+  - **Who / when**
   - **Why it works** (the mechanism)
   - **Key trade-off**
-- End with a **recommended shape** (which candidate + how big for MVP) and why.
+- End with a **recommendation** (which candidate + why + what must be true).
 
-### 4) Stack-rank & prioritize (lightweight)
+Use this concise format:
 
-Apply a lightweight prioritization pass using these lenses (score each **1–5**; higher is more):
+```markdown
+## Potential initiative candidates
 
-- **Impact**: How significantly does this move the needle on the core problem?
-- **Reach**: How many users or use cases does this affect?
-- **Confidence**: How well-understood is the problem and solution space?
-- **Effort**: How complex or costly is this likely to be? (higher = harder)
-- **Strategic Fit**: Does this align with stated business goals or OKRs?
+### Candidate A: [name]
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
 
-Present a compact table:
+### Candidate B: [name]
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
 
-- Candidate | Impact (1–5) | Reach (1–5) | Confidence (1–5) | Effort (1–5) | Strategic Fit (1–5) | Notes
+### Candidate C: [name] (optional)
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
 
-Then provide:
+### Recommendation
+- **Recommended candidate**:
+- **Why**:
+- **What must be true**:
+```
 
-- **Priority order**: a simple stack-rank (1 → N) with 1–2 bullets explaining the trade-offs that drove the ordering.
-- **Sensitivities (optional)**: what would change the order (e.g., “If effort is 2 points higher than expected, #2 becomes #1”).
+### 4) Confirm selected initiative (checkpoint)
 
-### 5) Confirm direction (checkpoint)
+- **Stop here unless the user has already selected a candidate.**
+- Ask the user to select one candidate, combine candidates, or adjust the recommendation.
+- Do **not** write `pm-high-level.md` until there is a selected initiative.
+- If the user already selected the initiative in the original request, state the selected initiative and continue to the kickoff one-pager.
 
-- **Stop here. Ask the user to confirm the direction** (pick a candidate or adjust the recommendation) **before** generating the full pre-PRD plan below.
+### 5) Write the focused kickoff one-pager
 
-### 6) Plan the work at “pre-PRD” fidelity
+- Write only for the **selected initiative**.
+- Do not re-list all candidate options in `pm-high-level.md`.
+- Keep it focused enough to read like a kickoff one-pager:
+  - Target **900–1,200 words max**.
+  - No section should exceed **5 bullets** unless the user explicitly asks for depth.
+  - Prefer clear paragraphs and crisp numbered capability lists over broad planning tables.
+- Include `[NEED: ...]` for missing objectives, baselines, links, or evidence instead of inventing specifics.
 
-- **MVP scope** (3–8 bullets)
-- **Non-goals** (3–8 bullets)
-- **Milestones** (Discovery → Prototype → Build → Rollout)
-- **Risks & mitigations** (product + delivery + measurement)
-- **Open questions** (ranked by urgency)
+### 6) Optional deeper planning
 
-### 7) Measurement (light pre-PRD)
-
-- Define **one primary success metric** and **1–2 supporting signals** that tie to the chosen initiative.
-- Add **leading indicators** only when they are obvious from an existing baseline or prior instrumentation; otherwise omit or use `[NEED: ...]` instead of inventing a tracking design.
+- Keep prioritization scores, detailed milestones, instrumentation plans, and deep risk analysis **out of the main one-pager** by default.
+- If the user asks for them, provide them as chat-only notes, an appendix, or a separate planning artifact such as `pm-candidates.md` / `pm-planning-notes.md`.
 
 ## Output (files)
 
@@ -128,60 +141,47 @@ Write a single markdown file to:
 
 ### File contents
 
-Use this template:
+Use this template for the selected initiative only:
 
 ```markdown
-## PM High-Level: [initiative]
+# Feature Kickoff One-Pager - [Feature / Initiative]
 
-### Problem & outcome
-- **People problem**:
-- **Desired outcome**:
-- **Evidence**:
+## What problem are we trying to solve?
 
-### Users & scenarios
-- **Primary user**:
-- **Primary scenario**:
-- Secondary scenarios:
+[One short paragraph describing the user pain, where it shows up, and why it matters.]
 
-### Scope
-#### MVP (in)
-- ...
+- **Evidence**: [2–3 highest-signal proof points, quotes, counts, or refs]
+- **Current workaround(s)**: [how users solve or avoid this today]
 
-#### Out (non-goals)
-- ...
+**The main problem we are focused on:** [one sentence]
 
-### Prioritization (lightweight)
+## What is our motivation and expectation?
 
-- Score each candidate **1–5** using:
-  - **Impact** (moves the core problem)
-  - **Reach** (users / use cases affected)
-  - **Confidence** (how well-understood)
-  - **Effort** (higher = harder)
-  - **Strategic Fit** (aligns with goals / OKRs)
-- Provide a compact table:
-  - Candidate | Impact | Reach | Confidence | Effort | Strategic Fit | Notes
-- End with a **priority order** (1 → N) and 1–2 bullets explaining why.
+[One short paragraph connecting the problem to product/business motivation.]
 
-### Chosen initiative
-- **Selected candidate** (from Step 3; do not re-list all options here):
-- **MVP shape**:
-- **Why this over the other candidates** (1–2 bullets):
-- **Key trade-offs accepted**:
+- **Objective / KR**: [known objective or `[NEED: Objective/KR]`]
+- **Expected impact**: [measurable hypothesis, not a guaranteed result]
+- **Success signal**: [1 primary signal + 1 optional supporting signal]
 
-### Milestones
-- Discovery:
-- Prototype:
-- Build:
-- Rollout:
+## What is the feature? High-level overview
 
-### Risks & mitigations
-- ...
+1. [MVP capability 1]
+2. [MVP capability 2]
+3. [MVP capability 3]
+4. [Optional MVP capability 4]
+5. [Optional MVP capability 5]
 
-### Measurement
-- **Primary metric**:
-- Supporting (1–2):
-- Leading indicators (only if grounded in known baseline / data; else `[NEED: ...]` or omit):
+[Optional: mock/prototype link if available.]
 
-### Open questions
+## Why would this fail?
+
+1. [Adoption / behavior-change failure mode]
+2. [Trust, privacy, or comfort failure mode]
+3. [Discoverability / competing-workflow failure mode]
+4. [Scope, complexity, or product-positioning failure mode]
+5. [Measurement or rollout failure mode]
+
+## Decisions needed before PRD
+
 1. ...
 ```

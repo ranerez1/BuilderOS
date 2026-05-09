@@ -1,28 +1,24 @@
 ---
 name: 02-pm-planner
-description: Translates discovery outputs (problems, trends, evidence) into actionable product initiatives with clear outcomes, scope, milestones, and metrics. Use when the user wants to turn discovery into an initiative plan or runs /02-pm-planner.
+description: Translates discovery outputs into 2-3 candidate initiatives, then creates a focused kickoff one-pager for the selected initiative. Use when the user wants to turn discovery into an initiative direction or runs /02-pm-planner.
 ---
 
-# PM Planner
+# PM Planner (problem → candidate initiatives → kickoff one-pager)
 
-Turn discovery findings into a **practical, decision-ready initiative plan** a PM can share with design/engineering before writing a full PRD.
+Turn an unstructured problem space into **2–3 initiative candidates**, then a focused **Feature Kickoff One-Pager** for the selected initiative.
+
+This is a **problem-to-initiative planning tool**: start with messy inputs (observations, complaints, hypotheses), propose **2–3 potential initiatives**, then write a focused **Feature Kickoff One-Pager** only for the selected initiative.
+
+It is **not a full PRD**. The goal is to help a PM transition from **problem space → selected direction**, align with design/engineering, and only then write a full PRD.
 
 ## Inputs (ask only if missing)
 
-- **Discovery inputs** (preferred):
-  - Key trend(s) / problem statement(s)
-  - Evidence snippets (quotes, record refs, counts)
-  - Who/where it shows up (persona/segment/product area)
-- **Initiative framing** (if already decided):
-  - Initiative name + 1–2 lines
+- **Starting point**: what do we know so far? (notes, doc, snippet, or 3–8 bullets)
+- **Optional working title**: feature/initiative name + 1–2 lines (if already decided)
+- **Target user + scenario** (who, when, why)
+- **People problem + evidence** (required; 2–5 bullets, use `[NEED: ...]` for gaps)
 - **Constraints**: timing, platform, dependencies, compliance, stakeholders
-- **Baseline + success**: current state + 1–3 measurable success signals
-
-If the user only provides a raw idea, first restate it as a discovery-backed problem:
-
-- People problem + evidence (required; 2–5 bullets, use `[NEED: ...]` for gaps)
-- **Constraints**: timing, platform, dependencies, compliance, stakeholders
-- **Baseline + success**: current state + 1–3 measurable success signals
+- **Baseline + success**: current state + 1–2 measurable success signals (keep light; detailed metrics come only after direction is selected)
 
 ## Workflow
 
@@ -31,11 +27,13 @@ If the user only provides a raw idea, first restate it as a discovery-backed pro
 Before asking the user for missing inputs, scan for relevant context and reuse it.
 
 - Look for anything relevant in:
-  - `Knowledge/`
+  - `Knowledge/02-Product-Knowledge/`
+  - `Knowledge/03-Market-Knowledge/`
+  - `Knowledge/04-ICP/`
   - `Learnings/`
   - `Outputs/Discovery/`
-  - `Outputs/Planning/<initiative>/` (if initiative is known)
-- If initiative planning files exist, use them as upstream context (do not summarize; use directly).
+- Extract and cite the **highest-signal facts** (problem evidence, ICP details, constraints, competitive notes, prior decisions, metrics baselines).
+- If these folders are empty or not relevant, proceed without them (don’t fabricate).
 
 ### 0.5) Reuse existing initiative planning outputs (when available)
 
@@ -47,36 +45,80 @@ If the initiative name is known and `Outputs/Planning/<initiative>/` exists, loa
 
 If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise use the base file.
 
-### 1) Convert discovery into initiative candidates (no solution yet)
+### 1) Clarify the problem (no solution yet)
 
-- Start from trends/problems and generate **1–3 initiative candidates** (not feature tasks).
 - Translate any solution-y wording into:
   - **People Problem** (1–2 sentences)
   - **Desired outcome** (1 sentence)
-- Attach **evidence** to each candidate (quotes/refs + frequency when available).
 - List **assumptions** explicitly and mark unknowns with `[NEED: ...]`.
+- **Evidence bar**: if the problem or evidence is thin (mostly hypotheses, no user signals, heavy `[NEED: ...]`), say so explicitly. In Step 3, at least one of the 2–3 candidates must be a **discovery / validation initiative** (e.g. interviews, prototype tests, data pulls) aimed at strengthening the problem—not only “build the feature” options.
 
-### 2) Pick the initiative shape (options + recommendation)
+### 2) Define the decision you need
 
-- Propose **2 options** for how to address the problem (MVP shapes or sequencing variants).
-- Make the trade-off explicit (speed, risk, scope, UX quality, tech constraints).
-- State what “must be true” for the initiative to be worth doing now.
+- What decision do we need from the team? (which initiative to pursue, MVP shape, sequencing, trade-offs)
+- What “must be true” for this to succeed?
 
-### 3) Plan the work at “pre-PRD” fidelity
+### 3) Propose initiative candidates + recommended shape
 
-- **MVP scope** (3–8 bullets)
-- **Non-goals** (3–8 bullets)
-- **Milestones** (Discovery → Prototype → Build → Rollout)
-- **Risks & mitigations** (product + delivery + measurement)
-- **Open questions** (ranked by urgency)
+- Propose **2–3 initiative candidates** (distinct ways to address the problem or reduce uncertainty about it).
+- When evidence is weak, include a **discovery-first candidate** alongside any build candidates; do not pretend the solution space is settled.
+- For each candidate, include:
+  - **One-liner** (what it is)
+  - **Who / when**
+  - **Why it works** (the mechanism)
+  - **Key trade-off**
+- End with a **recommendation** (which candidate + why + what must be true).
 
-### 4) Measurement & instrumentation
+Use this concise format:
 
-- Define:
-  - **Primary success metric** (1)
-  - **Supporting metrics** (1–3)
-  - **Leading indicators** (2–5)
-- Add a short **instrumentation plan** (events/properties at a high level).
+```markdown
+## Potential initiative candidates
+
+### Candidate A: [name]
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
+
+### Candidate B: [name]
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
+
+### Candidate C: [name] (optional)
+- **One-liner**:
+- **Who / when**:
+- **Why it could work**:
+- **Main trade-off**:
+
+### Recommendation
+- **Recommended candidate**:
+- **Why**:
+- **What must be true**:
+```
+
+### 4) Confirm selected initiative (checkpoint)
+
+- **Stop here unless the user has already selected a candidate.**
+- Ask the user to select one candidate, combine candidates, or adjust the recommendation.
+- Do **not** write `pm-high-level.md` until there is a selected initiative.
+- If the user already selected the initiative in the original request, state the selected initiative and continue to the kickoff one-pager.
+
+### 5) Write the focused kickoff one-pager
+
+- Write only for the **selected initiative**.
+- Do not re-list all candidate options in `pm-high-level.md`.
+- Keep it focused enough to read like a kickoff one-pager:
+  - Target **900–1,200 words max**.
+  - No section should exceed **5 bullets** unless the user explicitly asks for depth.
+  - Prefer clear paragraphs and crisp numbered capability lists over broad planning tables.
+- Include `[NEED: ...]` for missing objectives, baselines, links, or evidence instead of inventing specifics.
+
+### 6) Optional deeper planning
+
+- Keep prioritization scores, detailed milestones, instrumentation plans, and deep risk analysis **out of the main one-pager** by default.
+- If the user asks for them, provide them as chat-only notes, an appendix, or a separate planning artifact such as `pm-candidates.md` / `pm-planning-notes.md`.
 
 ## Output (files)
 
@@ -104,54 +146,47 @@ Write a single markdown file to:
 
 ### File contents
 
-If multiple discovery trends exist, output **up to 3** initiative candidates, then recommend one. Use this template:
+Use this template for the selected initiative only:
 
 ```markdown
-## PM High-Level: [initiative]
+# Feature Kickoff One-Pager - [Feature / Initiative]
 
-### Problem & outcome
-- **People problem**:
-- **Desired outcome**:
-- **Evidence**:
-  - [record ref] — “[…]”
-  - [record ref] — “[…]”
+## What problem are we trying to solve?
 
-### Users & scenarios
-- **Primary user**:
-- **Primary scenario**:
-- Secondary scenarios:
+[One short paragraph describing the user pain, where it shows up, and why it matters.]
 
-### Scope
-#### MVP (in)
-- ...
+- **Evidence**: [2–3 highest-signal proof points, quotes, counts, or refs]
+- **Current workaround(s)**: [how users solve or avoid this today]
 
-#### Out (non-goals)
-- ...
+**The main problem we are focused on:** [one sentence]
 
-### Trade-offs / options
-- Option A:
-  - Pros:
-  - Cons:
-- Option B:
-  - Pros:
-  - Cons:
-- **Recommendation**:
+## What is our motivation and expectation?
 
-### Milestones
-- Discovery:
-- Prototype:
-- Build:
-- Rollout:
+[One short paragraph connecting the problem to product/business motivation.]
 
-### Risks & mitigations
-- ...
+- **Objective / KR**: [known objective or `[NEED: Objective/KR]`]
+- **Expected impact**: [measurable hypothesis, not a guaranteed result]
+- **Success signal**: [1 primary signal + 1 optional supporting signal]
 
-### Measurement
-- **Primary metric**:
-- Supporting:
-- Leading indicators:
-- Instrumentation notes:
+## What is the feature? High-level overview
 
-### Open questions
+1. [MVP capability 1]
+2. [MVP capability 2]
+3. [MVP capability 3]
+4. [Optional MVP capability 4]
+5. [Optional MVP capability 5]
+
+[Optional: mock/prototype link if available.]
+
+## Why would this fail?
+
+1. [Adoption / behavior-change failure mode]
+2. [Trust, privacy, or comfort failure mode]
+3. [Discoverability / competing-workflow failure mode]
+4. [Scope, complexity, or product-positioning failure mode]
+5. [Measurement or rollout failure mode]
+
+## Decisions needed before PRD
+
 1. ...
 ```
