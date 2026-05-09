@@ -1,11 +1,11 @@
 ---
 name: 04-ux-planner
-description: Produces a UX plan from a problem statement: users, journeys, IA, key screens/states, research plan, and UX acceptance criteria. Use when the user asks for a UX plan or runs /04-ux-planner.
+description: Produces a UX plan from a problem statement: users, journeys, IA, key screens/states, and UX acceptance criteria. Use when the user asks for a UX plan or runs /04-ux-planner.
 ---
 
 # UX Planner
 
-Turn a problem into a **design-ready plan**: what to design, what to validate, and how to measure usability and success.
+Turn a problem into a **design-ready plan**: what to design and how to capture usability and success expectations.
 
 ## Inputs (ask only if missing)
 
@@ -61,13 +61,7 @@ If multiple versions exist for a role, prefer the **highest `_vN`**; otherwise u
   - permission denied
   - first-run / onboarding (if needed)
 
-### 5) Research/validation plan (lightweight)
-
-- 3–5 research questions
-- Proposed method (prototype test, usability test, dogfooding, etc.)
-- Success criteria (task success, time-on-task, comprehension)
-
-### 6) UX acceptance criteria
+### 5) UX acceptance criteria
 
 - Convert key usability expectations into testable bullets.
 
@@ -119,11 +113,6 @@ Write a single markdown file to:
 ### Screens & states
 - Screens/views:
 - States (empty/loading/error/etc.):
-
-### Research / validation
-- Questions:
-- Method:
-- Success criteria:
 
 ### UX acceptance criteria
 - [ ] ...

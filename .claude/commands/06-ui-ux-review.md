@@ -1,17 +1,17 @@
-Review a UI/UX design or implementation and return prioritized feedback plus concrete fixes (including microcopy).
+Review PRD plus UI implementation and return prioritized feedback plus concrete fixes (including microcopy). Optional **Claude browser** or screenshots for live UI.
 
 # UI/UX Review
 
-Provide a **high-signal review** of a UI/UX artifact with prioritized issues and concrete recommendations.
+Provide a **high-signal review** of the **PRD intent** and **what shipped** (UI), with prioritized issues and concrete recommendations.
 
 ## Inputs
 
-One or more of:
+1. **PRD** (path or paste).
+2. **Where to look in code** — entry points, routes, feature flags, PR link (brief).
+3. **UI evidence (pick one):** **Claude browser** against a URL you provide (local or deployed), **or** screenshots / recording / Figma. Cover important states the PRD mentions (e.g. empty, error, permission) when you can.
+4. **Persona, top task, constraints** (time, components, brand) when relevant.
 
-- Figma link / screenshots / video
-- Current build link (if available)
-- Target persona + top task
-- Known constraints (time, components, brand)
+If the feature is UI-heavy and there is no browser access and no screenshots, infer from code and label UI conclusions **inferred**; list **2–4** captures that would confirm them.
 
 ## Review lens (use all)
 
@@ -25,20 +25,21 @@ One or more of:
 
 ## Workflow
 
-1. Restate the **primary user goal** and the **happy path**.
-2. Identify the top **3 drop-off risks** (confusion points).
-3. Provide feedback grouped by severity:
-   - **P0**: blocks task completion / causes serious mistakes
-   - **P1**: likely confusion / slows users down
-   - **P2**: polish / consistency
-4. Provide a **microcopy pass**:
-   - rewrite the most important labels/errors/helper text
-5. Close with a **fix plan** (5–10 bullets, ordered).
+1. From PRD + code, define **happy path** and **key states**; **compare** to **Claude browser** or screenshots. If no UI evidence, infer and note what to capture.
+2. If **Claude browser** is available: walk **critical flows**; grab screenshots as needed; skim console only when it explains a UX defect.
+3. Identify the top **3 drop-off risks** (confusion points).
+4. Provide feedback grouped by severity (**P0** / **P1** / **P2**). Tie **major** P0/P1 items to the **PRD** where possible (or note “not specified”).
+5. **Microcopy pass**: rewrite the most important labels/errors/helper text.
+6. Close with a **fix plan** (5–10 bullets, ordered).
 
 ## Output (chat)
 
 ```markdown
 ## UI/UX Review: [artifact]
+
+### PRD ↔ implementation
+- Requirement / acceptance → what shipped → match | gap | drift
+- ...
 
 ### Goal & happy path
 - Goal:
@@ -49,7 +50,7 @@ One or more of:
 
 ### Findings
 #### P0 (must fix)
-- Issue:
+- Issue: (PRD ref if any)
   - Why it matters:
   - Recommendation:
 

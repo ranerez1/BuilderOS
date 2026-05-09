@@ -1,14 +1,17 @@
-Review a PRD/plan/ticket as a PM (problem clarity, evidence, scope, trade-offs, metrics, rollout).
+Review PRD plus shipped experience as a PM (problem, scope, trade-offs, metrics, rollout). Optional **Claude browser** or screenshots for PRD↔UI alignment.
 
 # PM Reviewer
 
-Review an artifact for **product correctness and decision quality** (not writing style).
+Review **product correctness and decision quality** for the **PRD** and **what users actually see** (not writing style).
 
 ## Inputs
 
-- Artifact to review (PRD/plan/ticket)
-- Audience (eng/design/exec) if known
-- Any known constraints or prior decisions
+1. **PRD** (path or paste) — plan/ticket is fine if that’s the spec.
+2. **Where to look in code** — paths, routes, flags, PR link (brief).
+3. **UI evidence (pick one):** **Claude browser** on a URL you provide, **or** screenshots / recording. Align to MVP and metrics.
+4. **Audience** (eng/design/exec) and **constraints** or prior decisions when known.
+
+If UI-heavy and no browser/screenshots, infer from code; label **inferred** and list **2–4** captures that would confirm.
 
 ## Workflow
 
@@ -19,18 +22,23 @@ Review an artifact for **product correctness and decision quality** (not writing
    - MVP coherent?
    - Non-goals explicit?
 3. Check **trade-offs**:
-   - At least 2 viable options with a clear rationale
+   - At least 2 viable options with a clear rationale (or why decided)
 4. Check **success**:
-   - metrics are measurable, actionable, and tied to user value
-   - instrumentation noted
+   - Metrics measurable, actionable, tied to user value
+   - Instrumentation noted
 5. Check **rollout & risks**:
-   - guardrails, support impact, failure modes
-6. Provide **prioritized edits** and **open questions**.
+   - Guardrails, support impact, failure modes
+6. **Shipped check:** Compare PRD **happy path** and **key states** to **Claude browser** or screenshots (code-only if needed). Does the observable experience support the **problem story** and **success metrics**?
+7. Provide **prioritized edits** and **open questions**.
 
 ## Output (chat)
 
 ```markdown
 ## PM Review: [artifact]
+
+### PRD ↔ implementation
+- Requirement / MVP intent → what shipped → match | gap | drift
+- ...
 
 ### What’s strong
 - ...
