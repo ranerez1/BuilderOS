@@ -1,0 +1,8 @@
+{
+  "name": "builderos",
+  "private": true,
+  "scripts": {
+    "competitor-screenshot": "node .cursor/skills/10-competitor-feature-analysis/scripts/screenshot.mjs",
+    "competitor-presentation": "node .cursor/skills/10-competitor-feature-analysis/scripts/presentation.mjs"
+  }
+}

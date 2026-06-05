@@ -1,0 +1,13 @@
+{
+  "name": "10-competitor-feature-analysis",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "competitor-screenshot": "node scripts/screenshot.mjs",
+    "competitor-presentation": "node scripts/presentation.mjs"
+  },
+  "dependencies": {
+    "cloakbrowser": "^0.1.10",
+    "playwright-core": "^1.40.0"
+  }
+}
