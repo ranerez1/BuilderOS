@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Scheduled task features — Competitor comparison</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+  :root {
+    --bg: #f8fafc; --paper: #ffffff; --ink: #0f172a; --body: #475569;
+    --muted: #94a3b8; --line: #e2e8f0; --line-soft: #f1f5f9;
+    --accent: #10b981; --accent-strong: #059669; --accent-soft: #ecfdf5;
+    --good: #10b981; --warn: #f59e0b; --bad: #ef4444; --info: #2563eb;
+    --shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: Poppins, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--body); margin: 0;
+    line-height: 1.6; font-size: 16px;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+  .sans { font-family: Poppins, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+  /* ---- Hero ---- */
+  .hero { padding: 3.5rem 0 2.25rem; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; font-weight: 600;
+    color: var(--accent-strong); margin: 0 0 1rem; display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .eyebrow::before { content: ""; width: .7rem; height: .7rem; border-radius: 3px; background: var(--accent); }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em;
+    color: var(--ink); font-weight: 700; margin: 0 0 1.1rem; max-width: 20ch;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent-strong); }
+  .deck { font-size: 1.15rem; color: var(--body); max-width: 62ch; margin: 0 0 1.7rem; font-weight: 400; }
+  .legend { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; }
+  .chip {
+    font-size: .82rem; font-weight: 500; color: var(--ink);
+    display: inline-flex; align-items: center; gap: .45rem; padding: .35rem .8rem;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--paper); box-shadow: var(--shadow);
+  }
+  .chip .dot { width: .6rem; height: .6rem; border-radius: 50%; }
+  .meta { color: var(--muted); font-size: .82rem; }
+
+  /* ---- Section headers ---- */
+  section { margin-top: 3.25rem; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: .12em; font-size: .7rem; font-weight: 600;
+    color: var(--muted); display: flex; align-items: center; gap: .8rem; margin-bottom: 1.1rem;
+  }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  h2.title { font-size: 1.65rem; letter-spacing: -.02em; color: var(--ink); margin: 0 0 1.3rem; font-weight: 600; }
+
+  /* ---- Key insights ---- */
+  .insights { display: grid; gap: 1rem; }
+  .insight {
+    display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; align-items: start;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.2rem 1.4rem; box-shadow: var(--shadow);
+  }
+  .insight .num {
+    font-size: 1.6rem; font-weight: 700; color: var(--accent); line-height: 1;
+    font-variant-numeric: tabular-nums; padding-top: .15rem;
+  }
+  .insight h3 { margin: 0 0 .3rem; font-size: 1.12rem; color: var(--ink); font-weight: 600; }
+  .insight p { margin: 0; font-size: .95rem; }
+  .tag {
+    font-size: .66rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+    padding: .14rem .5rem; border-radius: 6px; color: #fff; margin-left: .5rem; vertical-align: middle;
+  }
+
+  /* ---- Comparison table ---- */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--paper); }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  thead th { position: sticky; top: 0; z-index: 1; }
+  th, td { padding: .8rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line-soft); }
+  th { background: var(--ink); color: #fff; font-weight: 600; font-size: .8rem; letter-spacing: .01em; }
+  th.cap-col { background: #1e293b; }
+  th .th-dot { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; margin-right: .45rem; vertical-align: middle; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody tr:hover { background: #f1f5f9; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.cap { font-weight: 600; color: var(--ink); }
+  .pill {
+    display: inline-block; font-size: .72rem; font-weight: 600; padding: .14rem .55rem;
+    border-radius: 999px; margin-right: .4rem; white-space: nowrap; vertical-align: baseline;
+  }
+  .pill-yes { background: var(--accent-soft); color: var(--accent-strong); }
+  .pill-no { background: #f1f5f9; color: #64748b; }
+  .pill-partial { background: #fef3c7; color: #b45309; }
+  .pill-need { background: #f8fafc; color: #64748b; border: 1px dashed #cbd5e1; }
+  .cell-text { color: var(--body); }
+
+  /* ---- Flows / storyboard ---- */
+  .flow { margin-bottom: 2.2rem; }
+  .flow-head { display: flex; align-items: center; gap: .7rem; margin-bottom: 1rem; }
+  .flow-head .dot { width: .7rem; height: .7rem; border-radius: 50%; }
+  .flow-head h3 { margin: 0; font-size: 1.2rem; color: var(--ink); font-weight: 600; }
+  .flow-head .label { font-size: .85rem; color: var(--muted); }
+  .steps { display: flex; gap: 0; overflow-x: auto; padding-bottom: .6rem; align-items: stretch; }
+  .step { flex: 0 0 300px; max-width: 300px; }
+  .step-card {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow); height: 100%; display: flex; flex-direction: column;
+  }
+  .step-card a.shot { display: block; line-height: 0; border-bottom: 1px solid var(--line-soft); }
+  .step-card img { width: 100%; display: block; }
+  .step-meta { padding: .8rem .9rem 1rem; }
+  .step-meta .badge {
+    display: inline-flex; align-items: center; gap: .4rem; font-size: .66rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .04em; color: #fff; padding: .16rem .55rem;
+    border-radius: 6px; margin-bottom: .5rem;
+  }
+  .step-meta .stepno { font-variant-numeric: tabular-nums; opacity: .85; }
+  .step-meta p { margin: 0; font-size: .85rem; color: var(--body); }
+  .step-meta a.src { font-size: .76rem; color: var(--info); word-break: break-all; }
+  .connector { flex: 0 0 2.4rem; display: flex; align-items: center; justify-content: center; color: #cbd5e1; }
+  .connector svg { width: 1.5rem; height: 1.5rem; }
+
+  /* CSS-only lightbox */
+  .lightbox { position: fixed; inset: 0; background: rgba(15,23,42,.88); display: none; z-index: 50; padding: 2rem; cursor: zoom-out; }
+  .lightbox:target { display: flex; align-items: center; justify-content: center; }
+  .lightbox img { max-width: 100%; max-height: 92vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+
+  /* ---- Notes / cards ---- */
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; }
+  .note-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.3rem 1.5rem; box-shadow: var(--shadow); }
+  .note-card h3 { margin: 0 0 .8rem; font-size: 1.1rem; color: var(--ink); font-weight: 600; display: flex; align-items: center; gap: .5rem; }
+  .note-card h3 .dot { width: .65rem; height: .65rem; border-radius: 50%; }
+  .note-card ul { margin: 0; padding-left: 1.1rem; }
+  .note-card li { margin-bottom: .45rem; font-size: .92rem; }
+  .note-card li::marker { color: var(--accent); }
+
+  /* ---- Gap analysis priorities ---- */
+  .prio { display: grid; gap: 1rem; }
+  .prio-card { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 1.2rem 1.4rem; box-shadow: var(--shadow); }
+  .prio-card h3 { margin: 0 0 .5rem; font-size: 1.1rem; color: var(--ink); font-weight: 600; }
+  .tier { font-size: .72rem; font-weight: 600; padding: .12rem .5rem; border-radius: 6px; }
+  .tier-P0 { background: #fee2e2; color: #b91c1c; }
+  .tier-P1 { background: #fef3c7; color: #b45309; }
+  .tier-P2 { background: #dbeafe; color: #1d4ed8; }
+  .tier-P3 { background: #f1f5f9; color: #64748b; }
+  .status-Shipped { color: var(--accent-strong); font-weight: 600; }
+  .status-Partial { color: #b45309; font-weight: 600; }
+  .status-Gap { color: #b91c1c; font-weight: 600; }
+  .status-Deferred, .status-Not { color: #64748b; }
+
+  .dq { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.5rem; box-shadow: var(--shadow); font-size: .9rem; }
+  .dq ul { margin: 0; padding-left: 1.2rem; }
+  .dq li { margin-bottom: .4rem; color: var(--body); }
+  .docs a, .src { color: var(--info); }
+  .empty { color: var(--muted); font-size: .9rem; }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .78rem; color: var(--muted); }
+</style></head><body><div class="wrap"><header class="hero">
+    <p class="eyebrow">Competitor analysis</p>
+    <h1>How <em>todoist &amp; ticktick</em> handle Scheduled task features</h1>
+    <p class="deck">How Todoist and TickTick schedule tasks in time: dates, times, durations, recurrence, calendar planning, and time-oriented list views.</p>
+    <div class="legend"><span class="chip"><span class="dot" style="background:#6366f1"></span>todoist</span><span class="chip"><span class="dot" style="background:#0ea5e9"></span>ticktick</span><span class="meta" style="margin-left:.4rem">2026-06-05</span></div>
+  </header><section><div class="kicker">Capability comparison</div><h2 class="title">Feature-by-feature</h2><div class="table-scroll"><table><thead><tr><th class="cap-col">Capability</th><th><span class="th-dot" style="background:#6366f1"></span>todoist</th><th><span class="th-dot" style="background:#0ea5e9"></span>ticktick</th></tr></thead><tbody><tr><td class="cap">Quick capture with date NLP</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">Quick Add</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">quick add with date parsing</span></td></tr><tr><td class="cap">Date + specific time</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">NLP or scheduler Time</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">Date &amp; Reminder; times on list rows</span></td></tr><tr><td class="cap">Task duration / time block</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">max 24h; requires date+time</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">start/end; multi-day All Day span</span></td></tr><tr><td class="cap">Separate deadline vs planned date</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">Deadline field (Pro)</span></td><td><span class="pill pill-no">No</span><span class="cell-text">separate deadline model documented</span></td></tr><tr><td class="cap">Recurring schedules</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">rich NLP recurrence</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">custom; 3 repeat semantics (due/completion/specific)</span></td></tr><tr><td class="cap">Edit single recurrence instance</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">recurring task menu</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">Only this Recurrence</span></td></tr><tr><td class="cap">Calendar views for scheduling</td><td><span class="pill pill-partial">Pro</span><span class="cell-text">calendar layout for durations</span></td><td><span class="cell-text">Built-in year/month/week/day/agenda/multi-week</span></td></tr><tr><td class="cap">Drag reschedule on calendar</td><td><span class="pill pill-need">needs verify</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">drag + Arrange Tasks + batch postpone</span></td></tr><tr><td class="cap">Time-oriented smart lists</td><td><span class="cell-text">Today, Upcoming</span></td><td><span class="cell-text">Today, Tomorrow, Next 7 Days</span></td></tr><tr><td class="cap">Date color coding</td><td><span class="pill pill-yes">Yes</span><span class="cell-text">overdue/today/tomorrow/week hues</span></td><td><span class="pill pill-need">needs verify</span></td></tr><tr><td class="cap">Multi-timezone scheduling</td><td><span class="pill pill-need">needs verify</span></td><td><span class="pill pill-yes">Yes</span><span class="cell-text">Additional Time Zone in calendar</span></td></tr></tbody></table></div></section><section><div class="kicker">Competitor flows</div><h2 class="title">Step-by-step storyboards</h2><div class="flow"><div class="flow-head"><span class="dot" style="background:#6366f1"></span><h3>todoist</h3></div><div class="steps"><div class="step"><div class="step-card"><a class="shot" href="#lb-todoist-main-0"><img src="screenshots/todoist-main.png" alt="todoist main"></a><div class="step-meta"><span class="badge" style="background:#6366f1"><span class="stepno">01</span> main</span><p>Authenticated Today view — Overdue section, Reschedule, task counts</p><br><a class="src" href="https://app.todoist.com/app/today">https://app.todoist.com/app/today</a></div></div></div></div></div><div class="flow"><div class="flow-head"><span class="dot" style="background:#0ea5e9"></span><h3>ticktick</h3></div><div class="steps"><div class="step"><div class="step-card"><a class="shot" href="#lb-ticktick-main-0"><img src="screenshots/ticktick-main.png" alt="ticktick main"></a><div class="step-meta"><span class="badge" style="background:#0ea5e9"><span class="stepno">01</span> main</span><p>Authenticated Today view — Overdue 3, Postpone, smart list counts</p><br><a class="src" href="https://ticktick.com/webapp/#q/today/tasks">https://ticktick.com/webapp/#q/today/tasks</a></div></div></div></div></div></section><a href="#" class="lightbox" id="lb-todoist-main-0"><img src="screenshots/todoist-main.png" alt="todoist main"></a><a href="#" class="lightbox" id="lb-ticktick-main-0"><img src="screenshots/ticktick-main.png" alt="ticktick main"></a><section><div class="kicker">Per-competitor notes</div><div class="notes"><div class="note-card"><h3><span class="dot" style="background:#6366f1"></span>todoist</h3><ul><li>Task-view Date scheduler + Quick Add NLP are primary scheduling surfaces</li><li>Deadline vs planned date is a distinct two-field model (Pro)</li><li>Duration capped at 24h; no multi-day duration block</li><li>Today view: Overdue section with Reschedule; red overdue dates</li><li>Sidebar Today/Upcoming with task count badges</li><li>Connect calendar promo on Today view</li></ul></div><div class="note-card"><h3><span class="dot" style="background:#0ea5e9"></span>ticktick</h3><ul><li>Today view: Overdue 3 section with Postpone; red overdue dates</li><li>Smart lists: All (14), Today (3), Next 7 Days (3), Inbox (5)</li><li>Recurring task icon on task rows</li><li>Calendar-first scheduling with drag, arrange, batch postpone (docs)</li><li>Duration supports multi-day All Day spans (docs)</li><li>Three recurrence semantics in help docs</li></ul></div></div></section><section class="docs"><div class="kicker">Supplemental docs</div><div class="table-scroll"><table><thead><tr><th class="cap-col">Competitor</th><th>Doc</th><th>URL</th></tr></thead><tbody><tr><td class="cap">todoist</td><td>Introduction to dates and time</td><td><a href="https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO">https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO</a></td></tr><tr><td class="cap">todoist</td><td>Introduction to recurring dates</td><td><a href="https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV">https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV</a></td></tr><tr><td class="cap">todoist</td><td>Introduction to deadlines</td><td><a href="https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U">https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U</a></td></tr><tr><td class="cap">todoist</td><td>Set a task duration</td><td><a href="https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d">https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d</a></td></tr><tr><td class="cap">ticktick</td><td>Task Details and Editing</td><td><a href="https://help.ticktick.com/articles/7055782408586526720">https://help.ticktick.com/articles/7055782408586526720</a></td></tr><tr><td class="cap">ticktick</td><td>Set Up Recurring Tasks</td><td><a href="https://help.ticktick.com/articles/7055782206349770752">https://help.ticktick.com/articles/7055782206349770752</a></td></tr><tr><td class="cap">ticktick</td><td>Calendar View Options</td><td><a href="https://help.ticktick.com/articles/7055782085826445312">https://help.ticktick.com/articles/7055782085826445312</a></td></tr><tr><td class="cap">ticktick</td><td>FAQ</td><td><a href="https://help.ticktick.com/articles/7055792921664028672">https://help.ticktick.com/articles/7055792921664028672</a></td></tr></tbody></table></div></section><section><div class="kicker">Data quality</div><div class="dq"><ul><li><strong>Login failures:</strong> none</li><li><strong>Missing states:</strong> todoist:create; todoist:edit; ticktick:create; ticktick:edit</li><li><strong>Plan-gated UI:</strong> todoist: deadlines, calendar duration layout (Pro); ticktick: Premium upsell in sidebar</li><li><strong>Assumptions:</strong> Task-view date pickers and calendar drag not captured in this run</li></ul></div></section><footer>Generated by /10-competitor-feature-analysis · 2026-06-05 · neutral research, no own-product recommendations.</footer></div></body></html>

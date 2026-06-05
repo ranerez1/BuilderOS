@@ -2,7 +2,6 @@
 /**
  * Capture competitor feature screenshots via CloakBrowser persistent profiles.
  */
-import fs from 'node:fs';
 import path from 'node:path';
 import {
   findRepoRoot,
@@ -19,8 +18,19 @@ import {
   validateCompetitorsConfig,
 } from './lib/competitors.mjs';
 import { launchPersistentContext } from './lib/cloak.mjs';
+import { ensureCloakBrowser, clearProfileLock } from './lib/setup.mjs';
+import { settlePage } from './lib/settle.mjs';
 
 const VALID_STATES = new Set(['main', 'create', 'edit', 'empty', 'error']);
+
+function authRequiredPayload(competitor, extra = {}) {
+  return {
+    status: 'auth_required',
+    message: `Session missing for ${competitor}. Run in an interactive terminal: npm run competitor-login -- --competitor ${competitor} --verify <app-url>`,
+    competitor,
+    ...extra,
+  };
+}
 
 function printHelp() {
   console.log(`Usage: competitor-screenshot [options]
@@ -32,8 +42,9 @@ Options:
   --run-dir <path>      Output run folder (default: Outputs/competitor-research/{feature-slug}-{date}/)
   --url <deep-link>     Navigate directly to feature URL
   --navigate            Start from Login URL (use when no cached URL)
-  --headed              Force headed browser (OAuth / manual login)
   --help                Show this help
+
+Auth: run \`npm run competitor-login\` in an interactive terminal before headless capture.
 `);
 }
 
@@ -44,7 +55,7 @@ async function isLoginPage(page) {
   return passwordField > 0;
 }
 
-async function captureScreenshot({ repoRoot, competitor, feature, state, runDir, url, navigate, headed }) {
+async function captureScreenshot({ repoRoot, competitor, feature, state, runDir, url, navigate }) {
   const config = loadCompetitors(competitorsPath(repoRoot));
   validateCompetitorsConfig(config);
 
@@ -68,65 +79,27 @@ async function captureScreenshot({ repoRoot, competitor, feature, state, runDir,
   const screenshotPath = path.join(screenshotsDir, `${competitor}-${state}.png`);
   const profilePath = profilesDir(repoRoot, competitor);
   ensureDir(profilePath);
+  clearProfileLock(profilePath);
 
-  let browserMode = headed ? 'headed' : 'headless';
-  const headless = !headed;
+  await ensureCloakBrowser();
+
+  const browserMode = 'headless';
 
   let context;
   try {
     context = await launchPersistentContext({
       userDataDir: profilePath,
-      headless,
+      headless: true,
       viewport: { width: 1440, height: 900 },
     });
     const page = context.pages()[0] || (await context.newPage());
 
     if (navigate && !targetUrl) {
-      await page.goto(loginUrl, { waitUntil: 'networkidle', timeout: 60000 });
+      await page.goto(loginUrl, { waitUntil: 'domcontentloaded', timeout: 90000 });
+      await settlePage(page);
       if (await isLoginPage(page)) {
-        await context.close();
-        if (!headed) {
-          console.error(
-            JSON.stringify({
-              status: 'auth_required',
-              message: `Session missing for ${competitor}. Re-run with --headed to complete OAuth.`,
-              competitor,
-            })
-          );
-          process.exit(2);
-        }
-        console.error(`Complete login for ${competitor} in the browser window, then press Enter...`);
-        await new Promise((resolve) => {
-          process.stdin.once('data', resolve);
-        });
-        context = await launchPersistentContext({
-          userDataDir: profilePath,
-          headless: false,
-          viewport: { width: 1440, height: 900 },
-        });
-        const retryPage = context.pages()[0] || (await context.newPage());
-        await retryPage.goto(loginUrl, { waitUntil: 'networkidle', timeout: 60000 });
-        browserMode = 'headed-auth';
-        await context.close();
-        context = await launchPersistentContext({
-          userDataDir: profilePath,
-          headless: true,
-          viewport: { width: 1440, height: 900 },
-        });
-        const finalPage = context.pages()[0] || (await context.newPage());
-        await finalPage.goto(loginUrl, { waitUntil: 'networkidle', timeout: 60000 });
-        if (await isLoginPage(finalPage)) {
-          throw new Error(`Still on login page after headed auth for ${competitor}.`);
-        }
-        console.error(
-          JSON.stringify({
-            status: 'auth_complete',
-            message: `Auth saved for ${competitor}. Re-run without --headed to capture.`,
-            competitor,
-          })
-        );
-        await context.close();
-        process.exit(0);
+        console.error(JSON.stringify(authRequiredPayload(competitor, { url: page.url() })));
+        process.exit(2);
       }
       throw new Error(
         `--navigate without --url only verifies login for ${competitor}. Provide --url or cache Feature screens URL, or use agent navigation.`
@@ -134,18 +107,11 @@ async function captureScreenshot({ repoRoot, competitor, feature, state, runDir,
     }
 
     const page2 = context.pages()[0] || (await context.newPage());
-    await page2.goto(targetUrl, { waitUntil: 'networkidle', timeout: 90000 });
+    await page2.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 90000 });
+    await settlePage(page2);
 
     if (await isLoginPage(page2)) {
-      await context.close();
-      console.error(
-        JSON.stringify({
-          status: 'auth_required',
-          message: `Session expired for ${competitor}. Re-run with --headed.`,
-          competitor,
-          url: page2.url(),
-        })
-      );
+      console.error(JSON.stringify(authRequiredPayload(competitor, { url: page2.url() })));
       process.exit(2);
     }
 
@@ -205,7 +171,6 @@ async function main() {
     runDir,
     url: args.url,
     navigate: Boolean(args.navigate),
-    headed: Boolean(args.headed),
   });
 }
 

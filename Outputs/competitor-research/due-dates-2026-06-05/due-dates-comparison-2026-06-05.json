@@ -1,0 +1,97 @@
+{
+  "type": "comparison",
+  "feature": "Due dates & scheduling",
+  "featureSlug": "due-dates",
+  "date": "2026-06-05",
+  "runDir": "Outputs/competitor-research/due-dates-2026-06-05",
+  "competitors": ["todoist"],
+  "scope": "How Todoist assigns, reschedules, and surfaces due dates — NLP capture, recurrence, duration, deadlines (Pro), and Today/Upcoming views. Single-competitor run; no logged-in UI capture on this environment.",
+  "capabilities": [
+    {
+      "name": "Date-only assignment",
+      "todoist": "Yes — task view Date field or Quick Add NLP"
+    },
+    {
+      "name": "Date + time",
+      "todoist": "Yes — NLP or scheduler time picker"
+    },
+    {
+      "name": "Natural language Quick Add",
+      "todoist": "Yes — broad date/recurrence/deadline parsing"
+    },
+    {
+      "name": "Recurring due dates",
+      "todoist": "Yes — NLP recurrence with completion-based next occurrence"
+    },
+    {
+      "name": "Deadline vs scheduled date",
+      "todoist": "Yes — separate Deadline field; {date} NLP (Pro)"
+    },
+    {
+      "name": "Task duration",
+      "todoist": "Yes — for Xh/Xm; max 24h; requires date+time"
+    },
+    {
+      "name": "Today / Upcoming views",
+      "todoist": "Yes — app routes e.g. /app/today"
+    },
+    {
+      "name": "Start dates / hide until start",
+      "todoist": "No — tasks remain visible in projects"
+    }
+  ],
+  "screenshots": [],
+  "notes": [
+    {
+      "competitor": "todoist",
+      "bullets": [
+        "Dual model: scheduled date vs hard deadline",
+        "Quick Add is the primary capture surface for dates and recurrence",
+        "Recurring completion semantics can shift next due if completed after midnight",
+        "Duration requires time; 24h cap; no multi-day duration span",
+        "Deep scheduling controls in task view right sidebar on web/desktop"
+      ]
+    }
+  ],
+  "docs": [
+    {
+      "competitor": "todoist",
+      "title": "Introduction to dates and time",
+      "url": "https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Introduction to recurring dates",
+      "url": "https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Introduction to deadlines",
+      "url": "https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Set a task duration",
+      "url": "https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Use Task Quick Add",
+      "url": "https://www.todoist.com/help/articles/use-task-quick-add-in-todoist-va4Lhpzz"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Use the task view",
+      "url": "https://www.todoist.com/help/articles/use-the-task-view-to-manage-tasks-in-todoist-eDeRDO0C"
+    }
+  ],
+  "dataQuality": {
+    "loginFailures": ["CloakBrowser binary unavailable on macOS (linux-x64 only)"],
+    "missingStates": ["todoist:main", "todoist:create", "todoist:edit"],
+    "planGated": ["Deadline field", "Calendar layout for durations — documented Pro/Business"],
+    "assumptions": [
+      "Overdue UI treatment not verified in logged-in app",
+      "Findings primarily from Todoist Help Center articles"
+    ]
+  }
+}

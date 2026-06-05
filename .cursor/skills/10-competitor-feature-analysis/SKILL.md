@@ -8,128 +8,67 @@ disable-model-invocation: true
 
 ## Role
 
-Act as a **neutral product researcher**. Compare how competitors implement a **specific feature** using logged-in product UI (screenshots as evidence) plus public docs when the UI is unclear.
+Neutral product researcher: compare one **feature** across competitors using logged-in UI (screenshots) plus public docs when needed.
 
-## Quick Start
+## Quick start
 
-When invoked:
+1. **Gate:** `Knowledge/competitors.md` complete (no `[FILL]`, login URLs, ≥1 competitor). Else show template and **stop**.
+2. Confirm competitor(s) + feature; create `Outputs/competitor-research/{feature-slug}-{YYYY-MM-DD}/`.
+3. **Setup & auth** (first run / new machine) — then capture → report → JSON/HTML → update Feature screens on successful `main`.
+4. Gap analysis only when user asks for own-product comparison or value ranking.
 
-1. **Gate:** verify `Knowledge/competitors.md` is complete (no `[FILL]`, valid Login URLs, at least one competitor row). If missing or incomplete → create/show template and **stop** until user fills it.
-2. Confirm **competitor(s)** and **feature** to analyze.
-3. Create run folder: `Outputs/competitor-research/{feature-slug}-{YYYY-MM-DD}/`.
-4. Read Feature screens table in `Knowledge/competitors.md` for cached URLs.
-5. Capture screenshots per competitor using CloakBrowser (see [Capture workflow](#capture-workflow)).
-6. Write neutral comparison report using template in [reference.md](reference.md).
-7. Write comparison JSON and generate HTML (see [Presentation workflow](#presentation-workflow)).
-8. When user wants own-product comparison or value ranking: run [Gap analysis workflow](#gap-analysis-workflow).
-9. Update `Knowledge/competitors.md` Feature screens after successful `main` capture.
+## Setup & auth
 
-**One-time setup:** `cd .cursor/skills/10-competitor-feature-analysis && npm install`
+```bash
+cd .cursor/skills/10-competitor-feature-analysis && npm install && cd ../../../
+npm run competitor-setup    # installs CloakBrowser binary (~/.cloakbrowser/)
+npm run competitor-login -- --competitor <slug> --verify "<app-url>"   # per competitor, once
+```
 
-## Inputs
+- Sessions live in `.cloak-profiles/{slug}/` (gitignored). **Login must run in the user's interactive terminal** (Enter after OAuth) — not agent background shells.
+- Captures are **headless only**. Exit **2** (`auth_required`) → give user the `competitor-login` command; wait for confirmation before retrying.
+- Troubleshooting: [reference.md](reference.md#troubleshooting)
 
-| Input | Required | Notes |
-| --- | --- | --- |
-| Competitor(s) | Yes | Slugs from `Knowledge/competitors.md` |
-| Feature name | Yes | e.g. "environment variables", "deploy logs" |
-| Project context | No | Helps navigation when dashboards have many projects |
+## Capture
 
-## Capture workflow
-
-For **each** competitor:
-
-1. Check **Feature screens** in `Knowledge/competitors.md` for a cached URL.
-2. Run the screenshot script (headless by default; headed only for first login or expired OAuth):
+Per competitor: `competitor-setup` shows `hasProfileData` → use cached URL from Feature screens or `--navigate`.
 
 ```bash
 npm run competitor-screenshot -- \
-  --competitor competitor-a \
-  --feature "environment variables" \
-  --run-dir Outputs/competitor-research/environment-variables-2026-06-05 \
-  --state main \
-  --url "https://example.com/.../settings/environment-variables"
-
-# Or navigate from login when no cached URL:
-npm run competitor-screenshot -- \
-  --competitor competitor-a \
-  --feature "environment variables" \
-  --state main \
-  --navigate
+  --competitor <slug> --feature "<name>" \
+  --run-dir Outputs/competitor-research/<feature-slug>-<date> \
+  --state main --url "<deep-link>"
 ```
 
-3. Capture **multi-state** screenshots from the same feature URL:
-   - `main` (required)
-   - `create` or `edit` when safely reachable
-   - `empty`, `error` when reachable without destructive actions
-4. Repeat `--state` runs; script prints JSON with `url`, `screenshotPath`, `browserMode`.
-5. After successful `main` capture, update the competitor's **Feature screens** row.
+States: `main` (required), then `create` / `edit` / `empty` / `error` when safe (no destructive ops). Optional: CloakBrowser MCP for complex `--navigate`. **Capture extra states when safe** — each becomes a numbered step in the competitor's flow storyboard (ordered `main → empty → create → edit → error`).
 
-**Browser policy:** headless for probe, navigation, and screenshots. If session is missing or expired, script relaunches **headed** for manual OAuth, then resumes headless. Never store credentials in the repo. Profiles live in `.cloak-profiles/{competitor-slug}/` (gitignored).
+## Analysis
 
-**Optional:** CloakBrowser MCP for agent-driven navigation when `--navigate` is insufficient.
+Inspect screenshots; add public docs when UI is unclear. Report stays **neutral** (no own-product recs). Navigation fails twice → ask for deep link, cache in `Knowledge/competitors.md`. Template: [reference.md](reference.md#comparison-report-template).
 
-## Analysis workflow
+Write **3–5 key insights** (synthesized, neutral takeaways) and a one-line **summary** for the report hero. Keep comparison cells starting with `Yes`/`No`/`Partial`/`Pro`/`[NEED: …]` so they render as badges.
 
-1. Inspect screenshots; note capabilities, scoping, UX patterns, and plan gates visible in UI.
-2. Supplement with **public docs** when UI is unclear or plan-gated (cite URLs).
-3. If navigation fails twice, ask user for a deep link and cache in `Knowledge/competitors.md`.
-4. Save report using template in [reference.md](reference.md).
-5. Keep report **neutral** — no own-product recommendations in the body.
-6. Add **Next steps (optional)** footer only when user wants to act (`02-pm-planner`, `05-prd-to-tech-plan`).
+## Presentation
 
-## Presentation workflow
+1. Write `{feature-slug}-comparison-{date}.json` (schema: `presentation-data.example.json`) — include `summary`, `keyInsights`, and optional `flows`. Omit `flows` to auto-group screenshots into per-competitor storyboards.
+2. `npm run competitor-presentation -- --data Outputs/competitor-research/.../....json`
+3. Open the HTML; verify hero, key insights, badge table, and flow storyboards render (screenshot paths relative to run folder).
 
-After markdown report is complete:
+## Gap analysis
 
-1. Create `{feature-slug}-comparison-{YYYY-MM-DD}.json` in the run folder using [presentation-data.example.json](presentation-data.example.json) as schema. Mirror markdown content.
-2. Generate HTML:
+After neutral comparison: audit own product ([checklist](reference.md#own-product-audit-checklist)), write `{feature-slug}-gap-analysis-{date}.json` (`gap-analysis.example.json`), tiers P0–P3, status `Shipped|Partial|Gap|Deferred|Not planned`. Same `competitor-presentation` command. Link gap HTML from comparison header.
 
-```bash
-npm run competitor-presentation -- \
-  --data Outputs/competitor-research/{feature-slug}-{date}/{feature-slug}-comparison-{date}.json
-```
+## Outputs
 
-3. Open output HTML locally; verify screenshots render (paths relative to run folder).
-4. Optional: `--output` for custom path.
+| Artifact | Path |
+|----------|------|
+| Screenshots | `{run-dir}/screenshots/{competitor}-{state}.png` |
+| Report / JSON / HTML | `{run-dir}/{feature-slug}-comparison-{date}.{md,json,html}` |
+| Gap (optional) | `{run-dir}/{feature-slug}-gap-analysis-{date}.{json,html}` |
+| Cache update | Feature screens row after successful `main` |
 
-HTML is self-contained (embedded CSS), works offline: scope, capability table, screenshot gallery, notes, docs, data quality.
+Kebab-case paths. Include **Data quality** (login failures, missing states, plan gates, assumptions). The HTML report leads with a hero + **key insights**, then the **comparison table** (badged cells), then per-competitor **flow storyboards**.
 
-## Gap analysis workflow
+## Reference
 
-Run when user asks how competitors compare **to own product**, wants features **ranked by value**, or requests a gap table.
-
-1. Complete neutral comparison (markdown + JSON + HTML) first.
-2. Audit own product using checklist in [reference.md](reference.md#own-product-audit-checklist).
-3. Write `{feature-slug}-gap-analysis-{YYYY-MM-DD}.json` using [gap-analysis.example.json](gap-analysis.example.json). Set `"type": "gap-analysis"`.
-4. Assign value tier per row: `P0` Critical, `P1` High, `P2` Medium, `P3` Lower.
-5. Per row: each competitor + own-product slug with `status` (`Shipped` | `Partial` | `Gap` | `Deferred` | `Not planned`) and `gapSummary`.
-6. When user asks for **best value** or **community ranking**: add `topSix` array (see reference.md).
-7. Generate HTML:
-
-```bash
-npm run competitor-presentation -- \
-  --data Outputs/competitor-research/{feature-slug}-{date}/{feature-slug}-gap-analysis-{date}.json
-```
-
-8. Link gap HTML from neutral comparison markdown header.
-
-Keep neutral report body free of own-product recommendations; gap HTML holds status and gap notes.
-
-## Output requirements
-
-Every run must produce:
-
-- PNGs under `{run-dir}/screenshots/` named `{competitor}-{state}.png`
-- Report: `{run-dir}/{feature-slug}-comparison-{date}.md`
-- JSON: `{run-dir}/{feature-slug}-comparison-{date}.json`
-- HTML: `{run-dir}/{feature-slug}-comparison-{date}.html`
-- **Gap analysis (when requested):** JSON + HTML in same run folder
-- Updated **Feature screens** URL in `Knowledge/competitors.md` when `main` capture succeeds
-
-Include **Data quality** section for login failures, missing states, plan-gated UI, and assumptions.
-
-All folder and path segments use **kebab-case with no whitespace**.
-
-## Additional reference
-
-Report template, navigation heuristics, multi-state checklist, JSON schemas, value tiers, own-product audit checklist: [reference.md](reference.md).
+Templates, navigation heuristics, multi-state checklist, JSON fields, value tiers, `competitors.md` gate template: [reference.md](reference.md).

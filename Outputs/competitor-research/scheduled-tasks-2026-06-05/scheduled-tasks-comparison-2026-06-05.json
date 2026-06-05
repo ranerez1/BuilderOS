@@ -1,0 +1,156 @@
+{
+  "type": "comparison",
+  "feature": "Scheduled task features",
+  "featureSlug": "scheduled-tasks",
+  "date": "2026-06-05",
+  "runDir": "Outputs/competitor-research/scheduled-tasks-2026-06-05",
+  "competitors": ["todoist", "ticktick"],
+  "scope": "How Todoist and TickTick schedule tasks in time: dates, times, durations, recurrence, calendar planning, and time-oriented list views.",
+  "capabilities": [
+    {
+      "name": "Quick capture with date NLP",
+      "todoist": "Yes — Quick Add",
+      "ticktick": "Yes — quick add with date parsing"
+    },
+    {
+      "name": "Date + specific time",
+      "todoist": "Yes — NLP or scheduler Time",
+      "ticktick": "Yes — Date & Reminder; times on list rows"
+    },
+    {
+      "name": "Task duration / time block",
+      "todoist": "Yes — max 24h; requires date+time",
+      "ticktick": "Yes — start/end; multi-day All Day span"
+    },
+    {
+      "name": "Separate deadline vs planned date",
+      "todoist": "Yes — Deadline field (Pro)",
+      "ticktick": "No separate deadline model documented"
+    },
+    {
+      "name": "Recurring schedules",
+      "todoist": "Yes — rich NLP recurrence",
+      "ticktick": "Yes — custom; 3 repeat semantics (due/completion/specific)"
+    },
+    {
+      "name": "Edit single recurrence instance",
+      "todoist": "Yes — recurring task menu",
+      "ticktick": "Yes — Only this Recurrence"
+    },
+    {
+      "name": "Calendar views for scheduling",
+      "todoist": "Pro calendar layout for durations",
+      "ticktick": "Built-in year/month/week/day/agenda/multi-week"
+    },
+    {
+      "name": "Drag reschedule on calendar",
+      "todoist": "[NEED: verify]",
+      "ticktick": "Yes — drag + Arrange Tasks + batch postpone"
+    },
+    {
+      "name": "Time-oriented smart lists",
+      "todoist": "Today, Upcoming",
+      "ticktick": "Today, Tomorrow, Next 7 Days"
+    },
+    {
+      "name": "Date color coding",
+      "todoist": "Yes — overdue/today/tomorrow/week hues",
+      "ticktick": "[NEED: logged-in UI]"
+    },
+    {
+      "name": "Multi-timezone scheduling",
+      "todoist": "[NEED: verify]",
+      "ticktick": "Yes — Additional Time Zone in calendar"
+    }
+  ],
+  "screenshots": [
+    {
+      "competitor": "todoist",
+      "state": "main",
+      "path": "screenshots/todoist-main.png",
+      "url": "https://app.todoist.com/app/today",
+      "caption": "Authenticated Today view — Overdue section, Reschedule, task counts"
+    },
+    {
+      "competitor": "ticktick",
+      "state": "main",
+      "path": "screenshots/ticktick-main.png",
+      "url": "https://ticktick.com/webapp/#q/today/tasks",
+      "caption": "Authenticated Today view — Overdue 3, Postpone, smart list counts"
+    }
+  ],
+  "notes": [
+    {
+      "competitor": "todoist",
+      "bullets": [
+        "Task-view Date scheduler + Quick Add NLP are primary scheduling surfaces",
+        "Deadline vs planned date is a distinct two-field model (Pro)",
+        "Duration capped at 24h; no multi-day duration block",
+        "Today view: Overdue section with Reschedule; red overdue dates",
+        "Sidebar Today/Upcoming with task count badges",
+        "Connect calendar promo on Today view"
+      ]
+    },
+    {
+      "competitor": "ticktick",
+      "bullets": [
+        "Today view: Overdue 3 section with Postpone; red overdue dates",
+        "Smart lists: All (14), Today (3), Next 7 Days (3), Inbox (5)",
+        "Recurring task icon on task rows",
+        "Calendar-first scheduling with drag, arrange, batch postpone (docs)",
+        "Duration supports multi-day All Day spans (docs)",
+        "Three recurrence semantics in help docs"
+      ]
+    }
+  ],
+  "docs": [
+    {
+      "competitor": "todoist",
+      "title": "Introduction to dates and time",
+      "url": "https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Introduction to recurring dates",
+      "url": "https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Introduction to deadlines",
+      "url": "https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U"
+    },
+    {
+      "competitor": "todoist",
+      "title": "Set a task duration",
+      "url": "https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d"
+    },
+    {
+      "competitor": "ticktick",
+      "title": "Task Details and Editing",
+      "url": "https://help.ticktick.com/articles/7055782408586526720"
+    },
+    {
+      "competitor": "ticktick",
+      "title": "Set Up Recurring Tasks",
+      "url": "https://help.ticktick.com/articles/7055782206349770752"
+    },
+    {
+      "competitor": "ticktick",
+      "title": "Calendar View Options",
+      "url": "https://help.ticktick.com/articles/7055782085826445312"
+    },
+    {
+      "competitor": "ticktick",
+      "title": "FAQ",
+      "url": "https://help.ticktick.com/articles/7055792921664028672"
+    }
+  ],
+  "dataQuality": {
+    "loginFailures": [],
+    "missingStates": ["todoist:create", "todoist:edit", "ticktick:create", "ticktick:edit"],
+    "planGated": ["todoist: deadlines, calendar duration layout (Pro)", "ticktick: Premium upsell in sidebar"],
+    "assumptions": [
+      "Task-view date pickers and calendar drag not captured in this run"
+    ]
+  }
+}

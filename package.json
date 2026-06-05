@@ -2,6 +2,8 @@
   "name": "builderos",
   "private": true,
   "scripts": {
+    "competitor-setup": "node .cursor/skills/10-competitor-feature-analysis/scripts/setup.mjs",
+    "competitor-login": "node .cursor/skills/10-competitor-feature-analysis/scripts/login.mjs",
     "competitor-screenshot": "node .cursor/skills/10-competitor-feature-analysis/scripts/screenshot.mjs",
     "competitor-presentation": "node .cursor/skills/10-competitor-feature-analysis/scripts/presentation.mjs"
   }

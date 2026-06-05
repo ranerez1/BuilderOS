@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Due dates &amp; scheduling — Competitor comparison</title><style>
+  :root { --bg: #0f1117; --card: #1a1d27; --text: #e8eaed; --muted: #9aa0a6; --accent: #6ea8fe; --border: #2d3340; }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; line-height: 1.5; }
+  h1, h2, h3 { font-weight: 600; margin-top: 2rem; }
+  h1 { margin-top: 0; font-size: 1.75rem; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { border: 1px solid var(--border); padding: 0.6rem 0.75rem; text-align: left; vertical-align: top; }
+  th { background: #222633; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .shot { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .shot img { width: 100%; display: block; }
+  .shot figcaption { padding: 0.75rem; font-size: 0.85rem; color: var(--muted); }
+  .tier-P0 { color: #ff6b6b; font-weight: 600; }
+  .tier-P1 { color: #ffa94d; }
+  .tier-P2 { color: #74c0fc; }
+  .tier-P3 { color: var(--muted); }
+  .status-Shipped { color: #51cf66; }
+  .status-Partial { color: #ffa94d; }
+  .status-Gap { color: #ff6b6b; }
+  ul { padding-left: 1.25rem; }
+  a { color: var(--accent); }
+</style></head><body>
+<h1>Competitor comparison: Due dates &amp; scheduling</h1>
+<p class="meta">Date: 2026-06-05 · Competitors: todoist</p>
+<div class="card"><h2>Scope</h2><p>How Todoist assigns, reschedules, and surfaces due dates — NLP capture, recurrence, duration, deadlines (Pro), and Today/Upcoming views. Single-competitor run; no logged-in UI capture on this environment.</p></div>
+<h2>Capability comparison</h2>
+<table><thead><tr><th>Capability</th><th>todoist</th></tr></thead><tbody><tr><td>Date-only assignment</td><td>Yes — task view Date field or Quick Add NLP</td></tr><tr><td>Date + time</td><td>Yes — NLP or scheduler time picker</td></tr><tr><td>Natural language Quick Add</td><td>Yes — broad date/recurrence/deadline parsing</td></tr><tr><td>Recurring due dates</td><td>Yes — NLP recurrence with completion-based next occurrence</td></tr><tr><td>Deadline vs scheduled date</td><td>Yes — separate Deadline field; {date} NLP (Pro)</td></tr><tr><td>Task duration</td><td>Yes — for Xh/Xm; max 24h; requires date+time</td></tr><tr><td>Today / Upcoming views</td><td>Yes — app routes e.g. /app/today</td></tr><tr><td>Start dates / hide until start</td><td>No — tasks remain visible in projects</td></tr></tbody></table>
+<h2>Screenshots</h2><div class="gallery"><p class="meta">No screenshots</p></div>
+<h2>Per-competitor notes</h2><div class="card"><h3>todoist</h3><ul><li>Dual model: scheduled date vs hard deadline</li><li>Quick Add is the primary capture surface for dates and recurrence</li><li>Recurring completion semantics can shift next due if completed after midnight</li><li>Duration requires time; 24h cap; no multi-day duration span</li><li>Deep scheduling controls in task view right sidebar on web/desktop</li></ul></div>
+<h2>Supplemental docs</h2>
+<table><thead><tr><th>Competitor</th><th>Doc</th><th>URL</th></tr></thead><tbody><tr><td>todoist</td><td>Introduction to dates and time</td><td><a href="https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO">https://www.todoist.com/help/articles/introduction-to-dates-and-time-q7VobO</a></td></tr><tr><td>todoist</td><td>Introduction to recurring dates</td><td><a href="https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV">https://www.todoist.com/help/articles/introduction-to-recurring-dates-YUYVJJAV</a></td></tr><tr><td>todoist</td><td>Introduction to deadlines</td><td><a href="https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U">https://www.todoist.com/help/articles/introduction-to-deadlines-in-todoist-uMqbSLM6U</a></td></tr><tr><td>todoist</td><td>Set a task duration</td><td><a href="https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d">https://www.todoist.com/help/articles/set-a-task-duration-L1kYkZv8d</a></td></tr><tr><td>todoist</td><td>Use Task Quick Add</td><td><a href="https://www.todoist.com/help/articles/use-task-quick-add-in-todoist-va4Lhpzz">https://www.todoist.com/help/articles/use-task-quick-add-in-todoist-va4Lhpzz</a></td></tr><tr><td>todoist</td><td>Use the task view</td><td><a href="https://www.todoist.com/help/articles/use-the-task-view-to-manage-tasks-in-todoist-eDeRDO0C">https://www.todoist.com/help/articles/use-the-task-view-to-manage-tasks-in-todoist-eDeRDO0C</a></td></tr></tbody></table>
+<h2>Data quality</h2><ul><li><strong>Login failures:</strong> CloakBrowser binary unavailable on macOS (linux-x64 only)</li><li><strong>Missing states:</strong> todoist:main; todoist:create; todoist:edit</li><li><strong>Plan-gated UI:</strong> Deadline field; Calendar layout for durations — documented Pro/Business</li><li><strong>Assumptions:</strong> Overdue UI treatment not verified in logged-in app; Findings primarily from Todoist Help Center articles</li></ul>
+</body></html>

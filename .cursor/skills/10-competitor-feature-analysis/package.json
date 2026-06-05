@@ -3,11 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "competitor-setup": "node scripts/setup.mjs",
+    "competitor-login": "node scripts/login.mjs",
     "competitor-screenshot": "node scripts/screenshot.mjs",
     "competitor-presentation": "node scripts/presentation.mjs"
   },
   "dependencies": {
-    "cloakbrowser": "^0.1.10",
+    "cloakbrowser": "^0.3.31",
     "playwright-core": "^1.40.0"
   }
 }

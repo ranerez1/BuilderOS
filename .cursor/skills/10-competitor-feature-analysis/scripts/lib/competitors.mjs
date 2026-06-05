@@ -58,7 +58,7 @@ export function loadCompetitors(filePath) {
 
   const competitors = {};
   for (const [slug, name, loginUrl, notes] of competitorRows) {
-    if (!slug) continue;
+    if (!slug || /^slug$/i.test(slug) || /^competitor slug$/i.test(slug)) continue;
     competitors[slug] = { slug, name, loginUrl, notes: notes || '' };
   }
 
@@ -68,7 +68,7 @@ export function loadCompetitors(filePath) {
 
   const featureScreens = [];
   for (const [competitorSlug, feature, cachedUrl, lastVerified] of featureRows) {
-    if (!competitorSlug || !feature) continue;
+    if (!competitorSlug || !feature || /^competitor slug$/i.test(competitorSlug)) continue;
     featureScreens.push({
       competitorSlug,
       feature: feature.toLowerCase(),
