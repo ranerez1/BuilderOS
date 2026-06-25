@@ -539,9 +539,8 @@ export default function TodoApp() {
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-4xl font-light tracking-tight sm:text-5xl">
             <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-              TBD
+              Taskley
             </span>
-            <span className="text-foreground"> - To Be Done</span>
           </h1>
           <p className="mx-auto max-w-md text-lg leading-snug text-muted-foreground">
             Your tasks, priorities, and deadlines in one clear view—so you always

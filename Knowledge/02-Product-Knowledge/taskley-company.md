@@ -1,7 +1,7 @@
-# TBD – To Be Done: Company Overview
+# Taskley: Company Overview
 
 ## One‑line description
-TBD ("To Be Done") is a consumer productivity app that helps overwhelmed knowledge workers turn scattered tasks into a realistic, time‑bound plan they can actually follow.
+Taskley is a consumer productivity app that helps overwhelmed knowledge workers turn scattered tasks into a realistic, time‑bound plan they can actually follow.
 
 ## Mission and vision
 - **Mission:** Help everyday people feel in control of their life by turning "I’ll get to it someday" into clear, doable next steps.
@@ -14,19 +14,19 @@ Users end up with:
 - A gap between their calendar and their task list.
 - Anxiety and guilt instead of a sense of progress.
 
-TBD focuses less on storing tasks and more on **helping users make, and stick to, a daily plan they believe in.**
+Taskley focuses less on storing tasks and more on **helping users make, and stick to, a daily plan they believe in.**
 
 ## Market context
-TBD operates within the fast‑growing global productivity and to‑do list apps market, which has several notable characteristics:
+Taskley operates within the fast‑growing global productivity and to‑do list apps market, which has several notable characteristics:
 - The broader productivity apps market is growing high‑single to low‑double digits annually through the 2020s.
 - To‑do list apps have shifted from simple checklists to cross‑platform, cloud‑synced systems that integrate calendars, email, and collaboration tools.
 - Competitive pressure is high, with incumbents like Microsoft, Google, Todoist, TickTick, Any.do, Notion, and ClickUp.
 - AI‑assisted planning (auto‑prioritization, smart scheduling, summarization) is becoming table stakes rather than a differentiator.
 
-Within this landscape, TBD targets **individual consumers** rather than enterprises, with a focus on people who currently feel underserved by generalist tools: they use them for capture, but still feel that their days "happen to them" instead of being intentionally planned.
+Within this landscape, Taskley targets **individual consumers** rather than enterprises, with a focus on people who currently feel underserved by generalist tools: they use them for capture, but still feel that their days "happen to them" instead of being intentionally planned.
 
 ## Product at a glance
-TBD is available on:
+Taskley is available on:
 - iOS and Android native apps.
 - Web app optimized for desktop planning.
 - Lightweight browser extension for task capture from Gmail and popular web apps.
@@ -35,11 +35,11 @@ Core concepts:
 - **Inbox:** Fast capture from any device using natural language ("Pay rent on Friday 9am", "Call Mom this weekend").
 - **Today Plan:** A daily view that forces trade‑offs; users commit to what they *will* do today, with a soft cap on total effort.
 - **Timeboxing:** Optional feature to drag tasks into time slots on a calendar‑like grid.
-- **Energy levels:** Tasks can be tagged as high/medium/low energy, and TBD recommends matching them to the user’s typical energy curve.
+- **Energy levels:** Tasks can be tagged as high/medium/low energy, and Taskley recommends matching them to the user’s typical energy curve.
 - **Rituals:** Guided morning and evening rituals to plan the day and review progress.
 
 ## Business model
-TBD follows a freemium subscription model:
+Taskley follows a freemium subscription model:
 - **Free tier:**
   - Unlimited tasks and projects.
   - Basic Today Plan and Inbox.
@@ -54,7 +54,7 @@ TBD follows a freemium subscription model:
 Pricing is positioned to be competitive with mainstream to‑do apps, with an emphasis on **annual plans** as the default.
 
 ## Company stage and scale (for exercise purposes)
-TBD is designed as a **Series A‑stage, product‑led growth company**, roughly three years post‑MVP:
+Taskley is designed as a **Series A‑stage, product‑led growth company**, roughly three years post‑MVP:
 - ~35 full‑time employees across product, engineering, design, data, marketing, and support.
 - Primary markets: North America and Western Europe, with an English‑only product.
 - A few hundred thousand monthly active users, of which a meaningful minority are paying subscribers.

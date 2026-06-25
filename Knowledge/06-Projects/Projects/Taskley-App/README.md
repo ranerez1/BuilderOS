@@ -1,4 +1,4 @@
-# TBD – To Be Done
+# Taskley
 
 A simple task list you can run on your own computer: add tasks, set **priorities (P1–P3)**, **due dates**, and **notes**. By default nothing is sent to the cloud—your list is stored in your browser until you optionally connect **Supabase** for sync.
 

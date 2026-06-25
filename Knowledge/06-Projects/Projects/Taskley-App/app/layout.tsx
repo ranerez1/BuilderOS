@@ -10,7 +10,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "TBD - To Be Done",
+  title: "Taskley",
   description:
     "Your tasks, priorities, and deadlines in one clear view—so you always know what to tackle next.",
 };

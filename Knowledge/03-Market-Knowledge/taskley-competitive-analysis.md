@@ -1,13 +1,13 @@
-# TBD – Competitive Landscape
+# Taskley – Competitive Landscape
 
 ## Category overview
-TBD operates in the **to‑do list and personal productivity** category, which sits inside the broader productivity apps market.
+Taskley operates in the **to‑do list and personal productivity** category, which sits inside the broader productivity apps market.
 This market is:
 - Large and growing, with global productivity app revenues and usage forecast to grow at high single‑ to low double‑digit CAGR through the 2020s.
 - Fragmented, with a mix of focused task managers (Todoist, TickTick, Things, Any.do) and broad workspaces or project tools (Notion, ClickUp, Asana, Trello).
 - Increasingly influenced by features like cross‑platform sync, calendar integration, and AI‑assisted planning.
 
-Within this landscape, TBD focuses on **individual daily planning**, not team project management.
+Within this landscape, Taskley focuses on **individual daily planning**, not team project management.
 
 ## Competitive segments
 For workshop purposes, it is helpful to think in three segments:
@@ -27,7 +27,7 @@ For workshop purposes, it is helpful to think in three segments:
    - Strengths: Strong focus on daily planning, timeboxing, and calendar integration.
    - Weaknesses: Smaller ecosystems, sometimes expensive, can feel rigid or prescriptive to more casual users.
 
-TBD is closest to the third segment but aims to stay more approachable and emotionally supportive than tools that assume a very disciplined user.
+Taskley is closest to the third segment but aims to stay more approachable and emotionally supportive than tools that assume a very disciplined user.
 
 ## Representative competitor snapshots
 
@@ -37,7 +37,7 @@ TBD is closest to the third segment but aims to stay more approachable and emoti
   - Mature product with years of refinement.
   - Strong integrations (calendar, email, browser, third‑party automation).
   - Powerful filters, labels, recurring tasks, and project structure.
-- **Limitations for TBD’s ICP:**
+- **Limitations for Taskley’s ICP:**
   - Emphasis on lists and projects, with planning mostly managed via due dates and priorities.
   - Easy to accumulate huge backlogs and overdue tasks.
   - Daily planning is possible but not the primary concept.
@@ -47,7 +47,7 @@ TBD is closest to the third segment but aims to stay more approachable and emoti
 - **Strengths:**
   - Free and bundled; zero friction for existing ecosystem users.
   - Good enough for basic lists and reminders.
-- **Limitations for TBD’s ICP:**
+- **Limitations for Taskley’s ICP:**
   - Simple lists and reminders, minimal guidance on planning or timeboxing.
   - Limited habit‑forming features or energy/time awareness.
   - Innovation pace often constrained by broader ecosystem priorities.
@@ -57,7 +57,7 @@ TBD is closest to the third segment but aims to stay more approachable and emoti
 - **Strengths:**
   - Deep customization and collaboration.
   - Suitable for projects with multiple stakeholders and artifacts.
-- **Limitations for TBD’s ICP:**
+- **Limitations for Taskley’s ICP:**
   - Setup and ongoing maintenance overhead.
   - Overly complex for a single person’s daily plan.
   - Harder to maintain a clean separation between "today" and "everything."
@@ -67,15 +67,15 @@ TBD is closest to the third segment but aims to stay more approachable and emoti
 - **Strengths:**
   - Very strong representation of time; tasks are blocks.
   - Deep calendar integrations and focus modes.
-- **Limitations for TBD’s ICP:**
+- **Limitations for Taskley’s ICP:**
   - Often pricey, targeted at pros already invested in productivity systems.
   - Can feel unforgiving when plans inevitably change.
   - Less emphasis on emotional experience and gentle guidance.
 
-## TBD’s differentiation
+## Taskley’s differentiation
 
 1. **Emotionally supportive daily planning**
-   - TBD aims to feel like a calm coach rather than a strict manager.
+   - Taskley aims to feel like a calm coach rather than a strict manager.
    - Copy, visuals, and rituals are designed to reduce guilt and anxiety, not amplify them.
 
 2. **Realism and trade‑offs as first‑class concepts**
@@ -91,11 +91,11 @@ TBD is closest to the third segment but aims to stay more approachable and emoti
    - Collaboration limited to light sharing and accountability, not full project workflows.
 
 ## Implications for feature decisions
-When designing new features, PMs at TBD should consider:
+When designing new features, PMs at Taskley should consider:
 - Does this feature strengthen our differentiation instead of mimicking a competitor’s roadmap?
 - Are we accidentally drifting into team/project management territory?
 - Are we introducing configuration and complexity that nudges us toward a Notion/ClickUp style product instead of a focused daily planner?
 
 For the workshop exercise, participants can reference this doc to:
 - Borrow patterns competitors have validated (e.g., natural‑language input, calendar views) without copying their entire philosophy.
-- Identify white space where TBD can offer a distinct experience, especially around **Completed Planned Days** and emotional relief.
+- Identify white space where Taskley can offer a distinct experience, especially around **Completed Planned Days** and emotional relief.

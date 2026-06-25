@@ -2,7 +2,7 @@ import type { Database } from '@/lib/supabase'
 
 export type LocalTodo = Database['public']['Tables']['todos']['Row']
 
-const STORAGE_KEY = 'tbd-todos-v1'
+const STORAGE_KEY = 'taskley-todos-v1'
 
 function isTodoRow(x: unknown): x is LocalTodo {
   if (x == null || typeof x !== 'object') return false
@@ -55,7 +55,7 @@ export function getDefaultSeedTodos(): LocalTodo[] {
   return [
     {
       id: 'local-seed-1',
-      task: 'Welcome to TBD — To Be Done',
+      task: 'Welcome to Taskley',
       is_complete: false,
       created_at: now,
       details:

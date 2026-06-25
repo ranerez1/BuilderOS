@@ -1,9 +1,9 @@
-# TBD – Ideal Customer Profile (ICP)
+# Taskley – Ideal Customer Profile (ICP)
 
 ## Primary ICP: Overwhelmed solo knowledge worker
 
 ### Summary
-TBD’s primary ICP is an **individual knowledge worker** in their mid‑20s to early‑40s who juggles multiple responsibilities and feels that their current task tools help them capture items but not actually *do* them.
+Taskley’s primary ICP is an **individual knowledge worker** in their mid‑20s to early‑40s who juggles multiple responsibilities and feels that their current task tools help them capture items but not actually *do* them.
 They are willing to pay a reasonable subscription if the tool gives them a daily sense of control and progress.
 
 ### Demographics
@@ -29,7 +29,7 @@ They are willing to pay a reasonable subscription if the tool gives them a daily
 - Has a backlog of overdue tasks and past‑due reminders they mostly ignore.
 
 ### Jobs to be done
-When life feels chaotic and everything feels urgent, TBD’s primary user wants to:
+When life feels chaotic and everything feels urgent, Taskley’s primary user wants to:
 - Turn all their scattered tasks (apps, emails, notes, sticky notes) into a single, trustworthy list.
 - Decide what is realistically achievable today versus what can wait.
 - Coordinate work and personal commitments in one place without overscheduling.
@@ -53,8 +53,8 @@ Emotional jobs:
 - Manual priority and due‑date management is tedious; everything ends up being "urgent".
 - Existing tools often assume a stable workday, whereas reality is meetings, interruptions, and context switching.
 
-### Why they choose TBD
-- TBD emphasizes **daily planning and trade‑offs** rather than infinite lists.
+### Why they choose Taskley
+- Taskley emphasizes **daily planning and trade‑offs** rather than infinite lists.
 - The Today Plan helps them commit to a realistic subset of work.
 - Energy and timeboxing features align with how their day actually feels, not just what’s on the calendar.
 - Rituals and gentle nudges help them build a lightweight routine without a heavy productivity system.

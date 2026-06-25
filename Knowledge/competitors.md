@@ -1,13 +1,13 @@
 # Competitors
 
-Configured for TBD (to-do / daily planning). Update Feature screens after successful `/10-competitor-feature-analysis` captures.
+Configured for Taskley (to-do / daily planning). Update Feature screens after successful `/10-competitor-feature-analysis` captures.
 
 ## Your product
 
-- **Slug**: tbd
-- **Name**: TBD (To Be Done)
+- **Slug**: taskley
+- **Name**: Taskley
 - **Login URL**: http://localhost:3000
-- **Audit paths**: Knowledge/02-Product-Knowledge/, Outputs/Product PRDs/, Knowledge/06-Projects/Projects/TBD-App/
+- **Audit paths**: Knowledge/02-Product-Knowledge/, Outputs/Product PRDs/, Knowledge/06-Projects/Projects/Taskley-App/
 
 ## Competitors
 
@@ -22,3 +22,6 @@ Configured for TBD (to-do / daily planning). Update Feature screens after succes
 |-----------------|---------|------------|---------------|
 | todoist | scheduled tasks | https://app.todoist.com/app/today | 2026-06-05 |
 | ticktick | scheduled tasks | https://ticktick.com/webapp/#q/today/tasks | 2026-06-05 |
+| todoist | add task | https://app.todoist.com/app/today | 2026-06-05 |
+| ticktick | add task | https://ticktick.com/webapp/#q/today/tasks | 2026-06-05 |
+| todoist | filters & labels | https://app.todoist.com/app/filters-labels | 2026-06-06 |

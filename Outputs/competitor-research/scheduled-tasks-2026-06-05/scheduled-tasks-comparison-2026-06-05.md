@@ -94,4 +94,4 @@ How **Todoist** and **TickTick** let users **schedule tasks in time** — assign
 
 ## Next steps (optional)
 
-Re-run `create`/`edit` state captures or calendar views for deeper UI comparison. For TBD gap analysis vs these patterns, run gap workflow or `/02-pm-planner`.
+Re-run `create`/`edit` state captures or calendar views for deeper UI comparison. For Taskley gap analysis vs these patterns, run gap workflow or `/02-pm-planner`.
