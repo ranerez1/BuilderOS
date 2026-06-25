@@ -7,7 +7,7 @@ Configured for Taskley (to-do / daily planning). Update Feature screens after su
 - **Slug**: taskley
 - **Name**: Taskley
 - **Login URL**: http://localhost:3000
-- **Audit paths**: Knowledge/02-Product-Knowledge/, Outputs/Product PRDs/, Knowledge/06-Projects/Projects/Taskley-App/
+- **Audit paths**: Knowledge/02-Product-Knowledge/, Outputs/Product PRDs/, Knowledge/06-Projects/Projects/Taskley-App/index.html
 
 ## Competitors
 
